@@ -12,6 +12,7 @@ public class Sprite extends Movable implements Printable{
 	protected byte tecla;
 	private ArrayList<Rectangle> quadros;//lista de quadros mapeados
 	private int quadroAtual=0;
+	protected boolean teclas[] = new boolean[90];
 	long time=0;
 	public Sprite(Image img){
 		this.img=img;
@@ -33,8 +34,17 @@ public class Sprite extends Movable implements Printable{
 		quadros.add(new Rectangle(x1,y1,x2,y2));
 	}
 	public void notifyTecla(byte tecla){
-
 		this.tecla = tecla;
+	}
+	
+	public void keyDown(byte tecla){
+		this.tecla = tecla;
+		teclas[tecla] = true;
+	}
+	
+	public void keyUp(byte tecla){
+		this.tecla = tecla;
+		teclas[tecla] = false;
 	}
 	public boolean isVisible() {
 		return visible;
@@ -42,6 +52,4 @@ public class Sprite extends Movable implements Printable{
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
-	
-
 }
