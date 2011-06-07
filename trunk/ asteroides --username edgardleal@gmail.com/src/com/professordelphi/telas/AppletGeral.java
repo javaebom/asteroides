@@ -51,6 +51,7 @@ public class AppletGeral extends JApplet implements KeyListener{
 	}
 
 	public void keyPressed(KeyEvent key) {
+		inicio.keyDown((byte)key.getKeyCode());
 		inicio.notifyTecla((byte)key.getKeyCode());
 		if (key.getKeyChar()==27) {
 			inicio.pause();
@@ -58,9 +59,10 @@ public class AppletGeral extends JApplet implements KeyListener{
 	}
 
 	public void keyReleased(KeyEvent key) {
-		inicio.notifyTecla((byte)0);
+		inicio.keyUp((byte)key.getKeyCode());
 	}
 
 	public void keyTyped(KeyEvent key) {
+		
 	}
 }
