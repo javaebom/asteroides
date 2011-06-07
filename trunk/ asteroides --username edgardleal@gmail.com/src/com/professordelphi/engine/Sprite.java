@@ -35,7 +35,6 @@ public class Sprite extends Movable implements Printable{
 	public void notifyTecla(byte tecla){
 
 		this.tecla = tecla;
-		System.out.println("Chamou-2!!!!");
 	}
 	public boolean isVisible() {
 		return visible;
