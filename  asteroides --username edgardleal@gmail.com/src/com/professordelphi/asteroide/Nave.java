@@ -34,16 +34,12 @@ public class Nave extends Sprite{
 	}
 	@Override
 	public void paint(Graphics g) {
-		switch(tecla){
-		case 37:esquerda();
-		break;
-		case 39:direita();
-		break;
-		case 32:missil.setLocation(this.getX1()+(getWidth()/2)-6, this.getY1());
-		
-		missil.show();
-		break;
+		if(teclas[37]) esquerda();
+		if(teclas[39])direita();
+		if(teclas[32]) {
+			missil.setLocation(this.getX1()+(getWidth()/2)-6, this.getY1());
+			missil.show();
 		}
 		super.paint(g);
-	}
-}
+	}//paint
+}//class
