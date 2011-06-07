@@ -21,12 +21,12 @@ public class Missil extends Sprite implements Printable{
 		super(jApplet.getImage(new URL(jApplet.getDocumentBase(),"img/misseis.png")));
 		setX1(250);
 		setY1(150);
-		setWidth(8);
-		setHeight(15.5);
+		setWidth(14);
+		setHeight(26);
 		for(int i = 0; i < 13; i++){
 			addQuadro(0, 62*i, 32, 62*(i+1));
 		}
-		setPasso(1.5);
+		setPasso(2.);
 	}
 	public void show(){
 		setVisible(true);

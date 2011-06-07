@@ -1,8 +1,6 @@
 package com.professordelphi.asteroide;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -28,6 +26,7 @@ public class Nave extends Sprite{
 		setHeight(32);
 		missil = new Missil(a);
 		this.cenario = c;
+		setPasso(1.5);
 		c.addPrintable(missil);
 
 		//---------------------------------------------
@@ -40,7 +39,7 @@ public class Nave extends Sprite{
 		break;
 		case 39:direita();
 		break;
-		case 32:missil.setLocation(this.getX1(), this.getY1());
+		case 32:missil.setLocation(this.getX1()+(getWidth()/2)-6, this.getY1());
 		
 		missil.show();
 		break;
