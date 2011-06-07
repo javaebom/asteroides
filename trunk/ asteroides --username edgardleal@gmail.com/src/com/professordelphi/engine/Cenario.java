@@ -57,7 +57,6 @@ public class Cenario extends JPanel implements Runnable{
 
 			}
 		}
-
 	}
 	public void pause(){
 		isPause = !isPause;
@@ -66,5 +65,16 @@ public class Cenario extends JPanel implements Runnable{
 		this.tecla = tecla;
 		System.out.println("Chamou-2!!!!");
 	}
-
+	public void keyDown(byte tecla){
+		for(Printable p : lista){
+			if(p instanceof Sprite)
+				((Sprite)(p)).keyDown(tecla);
+		}
+	}
+	public void keyUp(byte tecla){
+		for(Printable p : lista){
+			if(p instanceof Sprite)
+				((Sprite)(p)).keyUp(tecla);
+		}
+	}
 }
