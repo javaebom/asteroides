@@ -14,9 +14,9 @@ import com.professordelphi.engine.Sprite;
 public class Missil extends Sprite implements Printable{
 
 	public Missil(Image img) {
-		super(img);
-		
+		super(img); 
 	}
+	
 	public Missil(JApplet jApplet) throws MalformedURLException{
 		super(jApplet.getImage(new URL(jApplet.getDocumentBase(),"img/misseis.png")));
 		setX1(250);
