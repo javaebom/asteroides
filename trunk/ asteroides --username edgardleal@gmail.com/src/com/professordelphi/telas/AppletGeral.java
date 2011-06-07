@@ -10,8 +10,6 @@ import java.net.URL;
 
 import javax.swing.JApplet;
 
-import com.professordelphi.engine.Cenario;
-
 public class AppletGeral extends JApplet implements KeyListener{
 	
 	Fase01 inicio,cenario;
@@ -47,8 +45,6 @@ public class AppletGeral extends JApplet implements KeyListener{
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 	
 	public void stop(){
@@ -59,8 +55,6 @@ public class AppletGeral extends JApplet implements KeyListener{
 		if (key.getKeyChar()==27) {
 			inicio.pause();
 		}
-		System.out.println("Chamou-1!!!!");
-	
 	}
 
 	public void keyReleased(KeyEvent key) {
