@@ -20,8 +20,7 @@ public class Nave extends Sprite{
 		addQuadro(10, 0, 42, 40);
 		addQuadro(10, 50, 41, 90);
 		addQuadro(9, 100, 41, 140);
-		setX1(250);
-		setY1(370);
+		setLocation(250, 400);
 		setWidth(24);
 		setHeight(32);
 		missil = new Missil(a);
