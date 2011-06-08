@@ -63,7 +63,6 @@ public class Cenario extends JPanel implements Runnable{
 	}
 	public void notifyTecla(byte tecla){
 		this.tecla = tecla;
-		System.out.println("Chamou-2!!!!");
 	}
 	public void keyDown(byte tecla){
 		for(Printable p : lista){
