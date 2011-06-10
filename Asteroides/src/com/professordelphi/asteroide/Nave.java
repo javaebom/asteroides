@@ -12,7 +12,7 @@ import com.professordelphi.engine.Sprite;
 public class Nave extends Sprite{
 
 	private Missil missil;
-	private Cenario cenario;
+	//private Cenario cenario; pode ser utilizado posteriormente para tratamento de explosões
 
 	public Nave(JApplet a,Cenario c)throws MalformedURLException {
 		super(a.getImage( new URL(a.getDocumentBase(),"img/nave2.png")));
@@ -24,7 +24,7 @@ public class Nave extends Sprite{
 		setWidth(24);
 		setHeight(32);
 		missil = new Missil(a);
-		this.cenario = c;
+		//this.cenario = c;
 		setPasso(1.5);
 		c.addPrintable(missil);
 
