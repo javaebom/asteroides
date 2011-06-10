@@ -17,7 +17,7 @@ public class Vetor {
 		calcRaio();
 	}
 	
-	public void setDirecao(){
+	public void setDirecao(double direcao){
 		this.direcao = direcao;
 		calcXY();
 	}
@@ -69,7 +69,7 @@ public class Vetor {
 	 *
 	 */
 	public static void main(String arg[]){
-		Vetor v = new Vetor();
+		new Vetor();
 		System.out.println((Math.atan2(45,45)*(180/Math.PI)));
 	}
 	
