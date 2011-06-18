@@ -1,26 +1,70 @@
 package com.professordelphi.engine;
 
 public class Vetor {
-	private double x=100, y=100;
+	private double x=1, y=1;
     private double direcao=0, raio=0;
 	
 	
+    public Vetor(double x,double y){
+    	setXY(x, y);
+    }
+    public Vetor(){
+    	setXY(0, 0);
+    }
+    
+    public double produtoInterno(Vetor v){
+    	return (v.getX()*x)+(v.getY()*y);
+    }
+    /**Falta finalizar
+     * 
+     * @param v
+     * @return
+     */
+    public Vetor produtoExterno(Vetor v){
+    	Vetor result=new Vetor();
+    	
+    	return result;
+    }
+    
+    
 	public void somar(double x, double y){
 		this.x+=x;
 		this.y+=y;
 		calcRaio();
+		calcDirecao();
+	}
+	
+	public void somar(Vetor v){
+		somar(v.getX(),v.getY());
 	}
 	
 	public void subtrair(double x, double y){
 		this.x-=x;
 		this.y-=y;
 		calcRaio();
+		calcDirecao();
+	}
+	public void subtrair(Vetor v){
+		subtrair(v.getX(),v.getY());
 	}
 	
+	/**Informar o valor em radianos : um círculo = 2*Pi
+	 * 
+	 * @param direcao
+	 */
 	public void setDirecao(double direcao){
 		this.direcao = direcao;
 		calcXY();
 	}
+	/**Informar o valor em graus : 0 -> 360 </br>
+	 * OBS: o ângulo 0(zero) fica ao lado direito (3 horas)
+	 * 
+	 * @param angulo
+	 */
+	public void setDirecaoGraus(double angulo){
+		setDirecao(((angulo%360)/180)*Math.PI);
+	}
+	
 	
 	public void setXY(double x, double y){
 		this.x = x;
@@ -52,12 +96,34 @@ public class Vetor {
 		return x;
 	}
 	
+	public int getXParaORaio(double r){
+		return round(Math.cos(direcao)*r);
+	}
+	
+	
+	private int round(double v){
+		return (int)v;
+	}
+	
 	public double getY(){
 		return y;
 	}	
 	
 	public double getDirecao(){
 		return direcao;
+	}
+	
+	public void multiplicar(double v){
+		x = v*x;
+		y = v*y;
+		calcRaio();//a direção continua a mesma
+	}
+	
+	public void inverter(){
+		inverter(this);
+	}
+	public void inverter(Vetor v){
+		setDirecao((v.getDirecao()+Math.PI)%(2*Math.PI));
 	}
 	
 	public double getModulo(){
@@ -70,7 +136,8 @@ public class Vetor {
 	 */
 	public static void main(String arg[]){
 		new Vetor();
-		System.out.println((Math.atan2(45,45)*(180/Math.PI)));
+		System.out.println(Math.cos(0));
+		//math.a
 	}
 	
 	
@@ -83,13 +150,12 @@ public class Vetor {
 	}
 	
 	private void calcXY(){
-		x = Math.cos((180/Math.PI)*direcao)*raio;
-		y = Math.sin((180/Math.PI)*direcao)*raio;
+		x = Math.cos(direcao)*raio;
+		y = Math.sin(direcao)*raio;
 	}
 	
 	public void paint(java.awt.Graphics g){
-		y+=1;
-		g.fillOval((int)x,(int)y,10,10);
+		g.drawLine(100, 100,100 +(int)x, 100+(int)y);
 	}
 
 }
