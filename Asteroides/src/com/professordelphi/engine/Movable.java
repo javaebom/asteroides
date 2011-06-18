@@ -3,11 +3,13 @@ package com.professordelphi.engine;
 public class Movable implements Colidivel{
 	private double x1,x2,y1,y2 ;
 	private double passo = 1;
-	private Vetor atrito, aceleracao;
+	private Vetor atrito, aceleracao, vDireita, vEsquerda;
 	
 	public Movable(){
 		atrito = new Vetor(.8d,.8d);
 		aceleracao = new Vetor();
+		vDireita = new Vetor(getPasso(), 0);
+		vEsquerda= new Vetor(getPasso()*(-1), 0);
 	}
 	
 	@Override
@@ -16,7 +18,9 @@ public class Movable implements Colidivel{
 	}
 	
 	public void mover(){
-		
+		setLocation(x1+aceleracao.getX(), y1+aceleracao.getY());
+		atrito.inverter(aceleracao);
+		aceleracao.subtrair(atrito);
 	}
 	
 	public void subir(){
@@ -28,10 +32,12 @@ public class Movable implements Colidivel{
 	}
 	
 	public void direita(){
+		aceleracao.somar(vDireita);
 		setLocation((x1+getPasso()), getY1());
 	}
 	
 	public void esquerda(){
+		aceleracao.somar(vEsquerda);
 		setLocation((x1-getPasso()), getY1());
 	}
 	
@@ -110,5 +116,10 @@ public class Movable implements Colidivel{
 	
 	public int getTop(){
 		return (int)getY1();
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(Math.acos(1)*2);
+		System.out.println(Math.asin(1)*2);
 	}
 }

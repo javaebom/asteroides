@@ -137,7 +137,7 @@ public class Vetor {
 	public static void main(String arg[]){
 		new Vetor();
 		System.out.println(Math.cos(0));
-		//math.a
+
 	}
 	
 	
