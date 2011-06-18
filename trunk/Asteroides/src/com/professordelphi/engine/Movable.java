@@ -3,29 +3,40 @@ package com.professordelphi.engine;
 public class Movable implements Colidivel{
 	private double x1,x2,y1,y2 ;
 	private double passo = 1;
-
+	private Vetor atrito, aceleracao;
+	
+	public Movable(){
+		atrito = new Vetor(.8d,.8d);
+		aceleracao = new Vetor();
+	}
+	
 	@Override
 	public void colidiu(Movable m) {
 
 	}
 	
+	public void mover(){
+		
+	}
+	
 	public void subir(){
-		setLocation((int)getX1(), (int)(getY1()-getPasso()));
+		setLocation(x1, (y1-getPasso()));
 	}
 	
 	public void descer(){
-		setLocation((int)getX1(),(int)(getY1()+getPasso()));
+		setLocation(x1,(y1+getPasso()));
 	}
 	
 	public void direita(){
-		setLocation((int)(getX1()+getPasso()), getY1());
+		setLocation((x1+getPasso()), getY1());
 	}
 	
 	public void esquerda(){
-		setLocation((int)(getX1()-getPasso()), getY1());
+		setLocation((x1-getPasso()), getY1());
 	}
 	
-	public void setLocation(int x,int y){
+	public strictfp void setLocation(double x,double y){
+
 		setX2(getWidth()+x);
 		setX1(x);
 		
