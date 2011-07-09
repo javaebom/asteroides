@@ -23,7 +23,7 @@ public class Fase01 extends Cenario {
 		    addPrintable(nave);//diciona a nave na lista de objetos da fase
 		    
 		    
-		    imgFundo = applet.getImage(new URL(applet.getDocumentBase(),"img/cenario1.png"));
+		    imgFundo = applet.getImage(new URL(applet.getDocumentBase(),"img/fundo ok.jpg"));
 		    File file = new File("img/cenario1.png");
 		    if (file.isFile()) {
 				System.out.println("arquivo cenario1 encontrado");
