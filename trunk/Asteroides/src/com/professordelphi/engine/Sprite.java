@@ -13,7 +13,7 @@ public class Sprite extends Movable implements Printable{
 	private ArrayList<Rectangle> quadros;//lista de quadros mapeados
 	private int quadroAtual=0;
 	protected boolean teclas[] = new boolean[90];
-	long time=0;
+	private long time=0;
 	public Sprite(Image img){
 		this.img=img;
 		quadros = new ArrayList<Rectangle>();
@@ -25,9 +25,6 @@ public class Sprite extends Movable implements Printable{
 		Rectangle r = quadros.get(quadroAtual);
 		g.drawImage(img,getLeft(),getTop(),(int)getX2(),(int)getY2(),
 				r.x,r.y,r.width,r.height,null);
-		//Técnica para reiniciar o arraylist
-		if(time%5==0)
-			quadroAtual = ++ quadroAtual % (quadros.size());
 		time++;
 	}
 	public void addQuadro(int x1, int y1, int x2, int y2){
@@ -52,4 +49,27 @@ public class Sprite extends Movable implements Printable{
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	public void nextQuadro(){
+		//Técnica para reiniciar o arraylist
+		if(time%5==0)
+			quadroAtual = ++ quadroAtual % (quadros.size());
+	}
+	public void nextFrame(){
+		nextQuadro();
+	}
+	
+	public long getTime(){
+		return time;
+	}
+	public int getQuadroAtual() {
+		return quadroAtual;
+	}
+	public void setQuadroAtual(int quadroAtual) {
+		this.quadroAtual = quadroAtual;
+	}
+	
+	public int getQuadrosCount(){
+		return quadros.size();
+	}
+	
 }

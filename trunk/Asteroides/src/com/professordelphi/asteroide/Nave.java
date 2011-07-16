@@ -40,5 +40,6 @@ public class Nave extends Sprite{
 			missil.show();
 		}
 		super.paint(g);
+		nextFrame();//muda para o proximo quadro
 	}//paint
 }//class

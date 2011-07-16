@@ -1,6 +1,5 @@
 package com.professordelphi.telas;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -35,10 +34,7 @@ public class AppletGeral extends JApplet implements KeyListener{
 		try{
 			
 			inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
-			inicio.setBounds(0,0,800,600);// Setagem das dimensões. Argumentos do setbounds (x,y,w,h)
-			inicio.setBackground(Color.MAGENTA);// Setagem da cor de fundo. Essa cor não será exibida pois 
 			tela.add(inicio);// Adicionando o cenário 'inicio' no container
-			
 			this.addKeyListener(this);
 			this.requestFocus();
 			
