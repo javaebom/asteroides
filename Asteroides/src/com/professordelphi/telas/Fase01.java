@@ -6,6 +6,7 @@ import java.net.URL;
 
 import javax.swing.JApplet;
 
+import com.professordelphi.asteroide.Asteroide;
 import com.professordelphi.asteroide.Missil;
 import com.professordelphi.asteroide.Nave;
 import com.professordelphi.engine.Cenario;
@@ -13,15 +14,18 @@ import com.professordelphi.engine.Cenario;
 public class Fase01 extends Cenario {
 	Image imgFundo, imgNave, imgAsteroides;
 	public Nave nave;
+	public Asteroide asteroide1, asteroide2;
 	public Missil missil;
 
 	public Fase01(JApplet applet) {
 		super(null);
 		try{
 			
-			nave = new Nave(applet, this);
-		    addPrintable(nave);//diciona a nave na lista de objetos da fase
-		    
+		    addPrintable(new Nave(applet, this));//diciona a nave na lista de objetos da fase
+		    addPrintable(new Asteroide(applet, this));
+		    addPrintable(new Asteroide(applet, this));
+		    addPrintable(new Asteroide(applet, this));
+		    addPrintable(new Asteroide(applet, this));
 		    
 		    imgFundo = applet.getImage(new URL(applet.getDocumentBase(),"img/fundo ok.jpg"));
 		    File file = new File("img/cenario1.png");

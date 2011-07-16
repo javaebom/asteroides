@@ -40,6 +40,7 @@ public class Missil extends Sprite implements Printable{
 		if(!isVisible()) return;
 		subir();
 		super.paint(g);
+		nextFrame();//muda para o proximo quadro
 	}
 	@Override
 	public void colidiu(Movable m){
