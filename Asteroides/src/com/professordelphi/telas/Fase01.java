@@ -8,6 +8,7 @@ import javax.swing.JApplet;
 
 import com.professordelphi.asteroide.Asteroide;
 import com.professordelphi.asteroide.Missil;
+import com.professordelphi.asteroide.Mosquito;
 import com.professordelphi.asteroide.Nave;
 import com.professordelphi.engine.Cenario;
 
@@ -26,6 +27,8 @@ public class Fase01 extends Cenario {
 		    addPrintable(new Asteroide(applet, this));
 		    addPrintable(new Asteroide(applet, this));
 		    addPrintable(new Asteroide(applet, this));
+		    addPrintable(new Mosquito(applet, this));
+		    
 		    
 		    imgFundo = applet.getImage(new URL(applet.getDocumentBase(),"img/fundo ok.jpg"));
 		    File file = new File("img/cenario1.png");
