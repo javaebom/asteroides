@@ -54,7 +54,7 @@ public class Asteroide extends Sprite{
 	}
 
 	public void reset(){
-		this.setLocation((int)((Math.random()*500)-this.getWidth())-getWidth(), 
+		this.setLocation((int)((Math.random()*500)-this.getWidth())+getWidth(), 
 				(int)(Math.random()*60));
 		explodindo = false;
 		setQuadroAtual(0);
