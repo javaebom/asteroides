@@ -45,7 +45,7 @@ public class Mosquito extends Sprite {
 
 		if(getTime()%5==0) 
 			if(!explodindo){
-				if(getTime()%20==0)
+				if(getTime()%10==0)
 					setQuadroAtual(getQuadroAtual()==0?1:0);
 				descer();
 			}
