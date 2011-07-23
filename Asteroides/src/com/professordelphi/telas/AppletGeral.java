@@ -21,9 +21,6 @@ public class AppletGeral extends JApplet implements KeyListener{
 	URL urlFundo;
 	MediaCenter mediaCenter;
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	/**Comentários para o Javadoc para o método Init
@@ -73,6 +70,5 @@ public class AppletGeral extends JApplet implements KeyListener{
 	}
 
 	public void keyTyped(KeyEvent key) {
-		
 	}
 }

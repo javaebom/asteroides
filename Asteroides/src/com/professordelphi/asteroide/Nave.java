@@ -1,5 +1,6 @@
 package com.professordelphi.asteroide;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,7 +11,7 @@ import com.professordelphi.engine.Cenario;
 import com.professordelphi.engine.Sprite;
 
 public class Nave extends Sprite{
-
+	private boolean atirando = false;
 	private Missil missil;
 	//private Cenario cenario; pode ser utilizado posteriormente para tratamento de explosões
 
@@ -36,10 +37,36 @@ public class Nave extends Sprite{
 		if(teclas[37]) esquerda();
 		if(teclas[39])direita();
 		if(teclas[32]) {
-			missil.setLocation(this.getX1()+(getWidth()/2)-6, this.getY1());
-			missil.show();
+			atirando = true;
 		}
+		if (teclas[66]&&missil.isRead()){
+			missil.setLocation(this.getX1()+(getWidth()/2)-6, this.getY1());
+			missil.show();			
+		}
+
+		if(atirando) {
+			g.setColor(Color.cyan);
+			g.drawLine(getX1() + getWidth()/2 -1, getY1(), getX1() + getWidth()/2-1, 0);
+			g.setColor(Color.white);
+			g.drawLine(getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
+			g.setColor(Color.cyan);
+			g.drawLine(getX1() + getWidth()/2 +1, getY1(), getX1() + getWidth()/2+1, 0);
+			atirando = false;
+		}
+		
 		super.paint(g);
 		nextFrame();//muda para o proximo quadro
 	}//paint
+	
+	@Override
+	public void direita(){
+		if (getX2()>=500) return;
+		super.direita();
+	}
+	
+	@Override
+	public void esquerda(){
+		if(getX1()<=0) return;
+		super.esquerda();
+	}
 }//class
