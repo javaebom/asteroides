@@ -122,4 +122,16 @@ public class Movable implements Colidivel{
 		System.out.println(Math.acos(1)*2);
 		System.out.println(Math.asin(1)*2);
 	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
