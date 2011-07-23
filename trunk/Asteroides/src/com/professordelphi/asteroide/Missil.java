@@ -12,7 +12,8 @@ import com.professordelphi.engine.Printable;
 import com.professordelphi.engine.Sprite;
 
 public class Missil extends Sprite implements Printable{
-
+	private boolean read=true;
+	
 	public Missil(Image img) {
 		super(img); 
 	}
@@ -30,21 +31,27 @@ public class Missil extends Sprite implements Printable{
 	}
 	public void show(){
 		setVisible(true);
+		read = false;
 	}
 	public void hide(){
 		setVisible(false);
-		
+		read = true;
 	}
 	@Override
 	public void paint(Graphics g){
 		if(!isVisible()) return;
 		subir();
+		if (getY1()<0) hide();
 		super.paint(g);
 		nextFrame();//muda para o proximo quadro
 	}
 	@Override
 	public void colidiu(Movable m){
 		hide();
+	}
+	
+	public boolean isRead(){
+		return read;
 	}
 
 }

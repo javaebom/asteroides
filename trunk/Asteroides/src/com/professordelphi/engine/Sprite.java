@@ -48,6 +48,7 @@ public class Sprite extends Movable implements Printable{
 	}
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+		
 	}
 	public void nextQuadro(){
 		//Técnica para reiniciar o arraylist
