@@ -34,6 +34,7 @@ public class Mosquito extends Sprite {
 		this.setLocation((int)((Math.random()*500)-this.getWidth())+getWidth(), 
 				(int)(Math.random()*60));
 		explodindo = false;
+		setLife(100);
 		setQuadroAtual(0);		
 	}
 	
@@ -41,7 +42,7 @@ public class Mosquito extends Sprite {
 	public void paint(java.awt.Graphics g){
 		super.paint(g);
 		if(getTop()>=500-100)
-			explodindo = true;
+			ataque(50);
 
 		if(getTime()%5==0) 
 			if(!explodindo){
@@ -58,5 +59,13 @@ public class Mosquito extends Sprite {
 						reset();
 			}
 	}	
+	
+	
+	@Override
+	public boolean ataque(int intencidade){
+		super.ataque(intencidade);
+		if(getLife()<=0) explodindo = true;
+		return false;
+	}
 
 }
