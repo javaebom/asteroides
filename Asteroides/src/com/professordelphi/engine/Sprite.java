@@ -1,5 +1,6 @@
 package com.professordelphi.engine;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 
 public class Sprite extends Movable implements Printable{
 	private Image img;
-	private boolean visible = false;
+	private boolean visible = false ,mostraLife=true;
 	protected byte tecla;
 	private ArrayList<Rectangle> quadros;//lista de quadros mapeados
-	private int quadroAtual=0;
+	private int quadroAtual=0,life=100,resistencia = 2;
 	protected boolean teclas[] = new boolean[90];
 	private long time=0;
 	public Sprite(Image img){
@@ -19,12 +20,20 @@ public class Sprite extends Movable implements Printable{
 		quadros = new ArrayList<Rectangle>();
 	}
 	@Override
-	public void paint(Graphics g) {
+	public strictfp void paint(Graphics g) {
 		//Rectangle r = quadros.get(quadroAtual);
 		if(quadros.size()==0)return;
 		Rectangle r = quadros.get(quadroAtual);
 		g.drawImage(img,getLeft(),getTop(),(int)getX2(),(int)getY2(),
 				r.x,r.y,r.width,r.height,null);
+
+		if (mostraLife) {
+			g.setColor(Color.green);
+			g.drawLine(getX1(), getY1(), getX1() + (int)((getWidth()/100f)* life), getY1());
+			g.setColor(Color.red);
+			if(life<100)
+				g.drawLine(getX1() + (int)((getWidth()/100f)* life), getY1(), getX2(), getY1());
+		}
 		time++;
 	}
 	public void addQuadro(int x1, int y1, int x2, int y2){
@@ -33,12 +42,12 @@ public class Sprite extends Movable implements Printable{
 	public void notifyTecla(byte tecla){
 		this.tecla = tecla;
 	}
-	
+
 	public void keyDown(byte tecla){
 		this.tecla = tecla;
 		teclas[tecla] = true;
 	}
-	
+
 	public void keyUp(byte tecla){
 		this.tecla = tecla;
 		teclas[tecla] = false;
@@ -48,7 +57,7 @@ public class Sprite extends Movable implements Printable{
 	}
 	public void setVisible(boolean visible) {
 		this.visible = visible;
-		
+
 	}
 	public void nextQuadro(){
 		//Técnica para reiniciar o arraylist
@@ -58,7 +67,7 @@ public class Sprite extends Movable implements Printable{
 	public void nextFrame(){
 		nextQuadro();
 	}
-	
+
 	public long getTime(){
 		return time;
 	}
@@ -68,9 +77,24 @@ public class Sprite extends Movable implements Printable{
 	public void setQuadroAtual(int quadroAtual) {
 		this.quadroAtual = quadroAtual;
 	}
-	
+
 	public int getQuadrosCount(){
 		return quadros.size();
 	}
-	
+	public int getLife() {
+		return life;
+	}
+	public int getResistencia() {
+		return resistencia;
+	}
+	public boolean ataque(int intencidade){
+		life-=life<intencidade?intencidade+life-intencidade:intencidade;
+		return life <= 0;
+	}
+	public void setLife(int life){
+		this.life = life;
+	}
+	public void setExibeLife(boolean value){
+		mostraLife = value;
+	}
 }

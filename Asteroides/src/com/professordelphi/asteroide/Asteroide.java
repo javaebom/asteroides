@@ -1,16 +1,18 @@
 package com.professordelphi.asteroide;
 
+import java.awt.Color;
 import java.net.URL;
 
 import javax.swing.JApplet;
 
 import com.professordelphi.engine.Cenario;
 import com.professordelphi.engine.Sprite;
+import com.professordelphi.telas.Fase01;
 
 public class Asteroide extends Sprite{
 
 	private boolean explodindo = false;
-
+	private Cenario c=null;
 	public Asteroide(JApplet applet,Cenario c) throws Exception{
 		super(applet.getImage(new URL(applet.getDocumentBase(),"img/enemy1.png")));
 		this.addQuadro(0, 1, 32, 31);       // 0
@@ -29,14 +31,16 @@ public class Asteroide extends Sprite{
 		this.reset();
 		setPasso(2);
 		c.addPrintable(this);
+	    this.c = c;
 	}
 
 	@Override
 	public void paint(java.awt.Graphics g){
 		super.paint(g);
-		if(getTop()>=500-100)
-			explodir();
-
+		if(getTop()>=500){
+			reset();
+			if(c instanceof Fase01) ((Fase01)c).perda(5);
+		}
 		if(getTime()%5==0) 
 			if(!explodindo){
 				if(getTime()%20==0)
@@ -57,6 +61,7 @@ public class Asteroide extends Sprite{
 		this.setLocation((int)((Math.random()*500)-this.getWidth())+getWidth(), 
 				(int)(Math.random()*60));
 		explodindo = false;
+		setLife(100);
 		setQuadroAtual(0);
 	}
 
@@ -69,6 +74,14 @@ public class Asteroide extends Sprite{
 	}
 
 	public void explodir(){
+		if(explodindo) return ;		
 		setExplodindo(true);
+	}
+	
+	@Override 
+	public boolean ataque(int intencidade){
+		super.ataque(intencidade);
+		if(getLife()<=0 && !explodindo) explodir();
+		return false;
 	}
 }

@@ -28,6 +28,7 @@ public class Missil extends Sprite implements Printable{
 			addQuadro(0, 62*i, 32, 62*(i+1));
 		}
 		setPasso(2.);
+		setExibeLife(false);
 	}
 	public void show(){
 		setVisible(true);

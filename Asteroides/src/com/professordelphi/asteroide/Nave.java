@@ -13,6 +13,7 @@ import com.professordelphi.engine.Sprite;
 public class Nave extends Sprite{
 	private boolean atirando = false;
 	private Missil missil;
+	private Cenario c=null;
 	//private Cenario cenario; pode ser utilizado posteriormente para tratamento de explosões
 
 	public Nave(JApplet a,Cenario c)throws MalformedURLException {
@@ -28,7 +29,7 @@ public class Nave extends Sprite{
 		//this.cenario = c;
 		setPasso(1.5);
 		c.addPrintable(missil);
-
+		this.c = c;
 		//---------------------------------------------
 
 	}
@@ -52,6 +53,7 @@ public class Nave extends Sprite{
 			g.setColor(Color.cyan);
 			g.drawLine(getX1() + getWidth()/2 +1, getY1(), getX1() + getWidth()/2+1, 0);
 			atirando = false;
+			c.ataque(this,1, getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
 		}
 		
 		super.paint(g);

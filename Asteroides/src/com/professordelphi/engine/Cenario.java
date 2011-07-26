@@ -76,4 +76,11 @@ public class Cenario extends JPanel implements Runnable{
 				((Sprite)(p)).keyUp(tecla);
 		}
 	}
+	
+	public void ataque(Movable m,int intencidade ,int x,int y,int x2,int y2){
+		for (Printable p:lista) 
+			if (p instanceof Sprite && p != m) 
+				if(x>=((Sprite)p).getX1() && x2<=((Sprite)p).getX2())
+					((Sprite)p).ataque(intencidade);
+	}
 }
