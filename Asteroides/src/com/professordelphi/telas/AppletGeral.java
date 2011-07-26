@@ -33,28 +33,20 @@ public class AppletGeral extends JApplet implements KeyListener{
 		
 		tela = this.getContentPane();
 		this.setLayout(null);/*Desativa o gerenciador de Layout*/
-		try{
-			mediaCenter.add("img/mosquito.png");
-			mediaCenter.add("img/enemy1.png");
-//			mediaCenter.add("img/enemy2.png");
-//			mediaCenter.add("img/fundo ok.jpg");
-//			mediaCenter.add("img/misseis.png");
-//			mediaCenter.add("img/mosquito.png");
-			mediaCenter.add("http://3.bp.blogspot.com/-S3O4zwxgrMw/TYaET-9DkoI/AAAAAAAADnk/9uwpLzA_YIU/s1600/mapa_salvador_turistico.jpg");
-//			mediaCenter.add("http://1.bp.blogspot.com/-YgHUtwI2taQ/TfI1BcKzbUI/AAAAAAAADgo/DZnBw9HWFzQ/s1600/luana%2Bpiovani%2B2.jpg");
-//			mediaCenter.start();
-			
-			inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
-			tela.add(inicio);// Adicionando o cenário 'inicio' no container
 			this.addKeyListener(this);
 			this.requestFocus();
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+			iniciar();
 	}
 	
 	public void stop(){
+	}
+	
+	private void iniciar(){
+		mediaCenter.add("img/mosquito.png");
+		mediaCenter.add("img/enemy1.png");
+		mediaCenter.start();
+		inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
+		tela.add(inicio);// Adicionando o cenário 'inicio' no container
 	}
 
 	public void keyPressed(KeyEvent key) {

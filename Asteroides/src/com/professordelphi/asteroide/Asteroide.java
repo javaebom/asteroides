@@ -81,7 +81,10 @@ public class Asteroide extends Sprite{
 	@Override 
 	public boolean ataque(int intencidade){
 		super.ataque(intencidade);
-		if(getLife()<=0 && !explodindo) explodir();
+		if(getLife()<=0 && !explodindo){
+			((Fase01)c).acerto();
+			explodir();
+		}
 		return false;
 	}
 }
