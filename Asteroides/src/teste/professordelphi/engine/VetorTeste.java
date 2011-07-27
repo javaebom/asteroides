@@ -44,8 +44,19 @@ public class VetorTeste extends TestCase{
 
 	@Test
 	public void testSomarDoubleDouble() {
-
-		fail("Not yet implemented"); // TODO
+		Vetor gravidade= new Vetor(0,0.05), aceleracao = new Vetor(0,0);
+		
+		for (int i = 0; i < 50; i++) {
+			if (aceleracao.getRaio()+gravidade.getRaio()<2) 
+				aceleracao.somar(gravidade);
+			System.out.println(aceleracao.toString());
+			try {
+				Thread.sleep(50);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
 	}
 
 	@Test(timeout=500)

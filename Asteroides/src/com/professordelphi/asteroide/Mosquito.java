@@ -23,7 +23,7 @@ public class Mosquito extends Sprite {
 		this.setHeight(32);
 		this.setWidth(32);
 		this.reset();
-		setPasso(1);
+		setPasso(0.5);
 		c.addPrintable(this);		
 	}
 	

@@ -11,6 +11,7 @@ public class Cenario extends JPanel implements Runnable{
 	private Thread controle;
 	private byte tecla=0;
 	private boolean isPause = false;
+	private Vetor gravidade;
 	private ArrayList<Printable> lista;//Lista de sprites que serão pintados na tela
 
 	/**
@@ -23,11 +24,12 @@ public class Cenario extends JPanel implements Runnable{
 		lista = new ArrayList<Printable>();//Inicialização da lista
 		this.imgFundo = imgFundo;//Atribuição da imagem recebida em argumento
 		controle = new Thread(this);
+		gravidade = new Vetor(0, .03);
 		controle.start();
 	}
 	@Override
-	public void paint(Graphics g){//Método que recebe uma imagem a ser pintada na tela
-		//super.paint(g);//Reenvio da imagem recebida para o método paint do JPanel
+	public void paint(Graphics g){
+		Sprite sprite = null;
 		if(isPause){
 			g.fillRect(0, 0, 800, 600);	    	
 			return;
@@ -36,8 +38,11 @@ public class Cenario extends JPanel implements Runnable{
 			g.drawImage(imgFundo,0,0,600,450,800,600,1600,1200,null);//Ele desenha a imagem na tela. g.drawImage(imagem, x-tela, y-tela, largura-tela, altura-tela, x-imagem, y-imagem, largura-imagem, altura-imagem, notificação)
 		}
 		for(int i=0;i<lista.size();i++){//Varredura da lista
-			if(lista.get(i) instanceof Sprite)
-				((Sprite)lista.get(i)).notifyTecla(tecla);
+			if(lista.get(i) instanceof Sprite){
+				sprite = ((Sprite)lista.get(i));
+				sprite.notifyTecla(tecla);
+				sprite.mover(gravidade);
+			}
 			lista.get(i).paint(g);
 		}
 	}
