@@ -1,6 +1,5 @@
 package com.professordelphi.asteroide;
 
-import java.awt.Color;
 import java.net.URL;
 
 import javax.swing.JApplet;
@@ -29,7 +28,7 @@ public class Asteroide extends Sprite{
 		this.setHeight(32);
 		this.setWidth(32);
 		this.reset();
-		setPasso(2);
+		setPasso(0.5);
 		c.addPrintable(this);
 	    this.c = c;
 	}
@@ -45,13 +44,13 @@ public class Asteroide extends Sprite{
 			if(!explodindo){
 				if(getTime()%20==0)
 					setQuadroAtual((getQuadroAtual()+1)%3);
-				descer();
+				/*descer();*/
 			}
 			else{
 				if (getQuadroAtual()<6)
 					if(getTime()%20==0)
 						setQuadroAtual(getQuadroAtual()+1);
-					else descer();
+					else /*descer()*/;
 					else
 						reset();
 			}
@@ -61,6 +60,7 @@ public class Asteroide extends Sprite{
 		this.setLocation((int)((Math.random()*500)-this.getWidth())+getWidth(), 
 				(int)(Math.random()*60));
 		explodindo = false;
+		aceleracao.setXY(0, 0);//zera a movimentação
 		setLife(100);
 		setQuadroAtual(0);
 	}
@@ -87,4 +87,9 @@ public class Asteroide extends Sprite{
 		}
 		return false;
 	}
+	
+/*	@Override
+	public void mover(Vetor gravidade){
+		mover();
+	}*/
 }

@@ -26,12 +26,16 @@ public class Vetor {
     	return result;
     }
     
+    public String toString(){
+    	return "X:" + x + " , Y:" + y + " Raio:" + raio;
+    }
+    
     
 	public void somar(double x, double y){
 		this.x+=x;
 		this.y+=y;
 		calcRaio();
-		calcDirecao();
+		/*calcDirecao();*/
 	}
 	
 	public void somar(Vetor v){
@@ -42,41 +46,41 @@ public class Vetor {
 		this.x-=x;
 		this.y-=y;
 		calcRaio();
-		calcDirecao();
+		/*calcDirecao();*/
 	}
 	public void subtrair(Vetor v){
 		subtrair(v.getX(),v.getY());
 	}
 	
-	/**Informar o valor em radianos : um círculo = 2*Pi
+/*	*//**Informar o valor em radianos : um círculo = 2*Pi
 	 * 
 	 * @param direcao
-	 */
+	 *//*
 	public void setDirecao(double direcao){
 		this.direcao = direcao;
 		calcXY();
-	}
-	/**Informar o valor em graus : 0 -> 360 </br>
+	}*/
+/*	*//**Informar o valor em graus : 0 -> 360 </br>
 	 * OBS: o ângulo 0(zero) fica ao lado direito (3 horas)
 	 * 
 	 * @param angulo
-	 */
+	 *//*
 	public void setDirecaoGraus(double angulo){
 		setDirecao(((angulo%360)/180)*Math.PI);
-	}
+	}*/
 	
 	
 	public void setXY(double x, double y){
 		this.x = x;
 		this.y = y;
 		calcRaio();
-		calcDirecao();
+		/*calcDirecao()*/;
 	}
 	
-	public void setRaio(double raio){
+/*	public void setRaio(double raio){
 		this.raio = raio;
 		calcXY();
-	}
+	}*/
 	
 	public void setX(double x){
 		setXY(x,this.y);
@@ -120,8 +124,15 @@ public class Vetor {
 	public void inverter(){
 		inverter(this);
 	}
+	/**Inverte a direção do vetor.
+	 * 
+	 * @param v
+	 */
 	public void inverter(Vetor v){
-		setDirecao((v.getDirecao()+Math.PI)%(2*Math.PI));
+		x = v.getX();
+		y = v.getY();
+		x = x * (-1);
+		y = y * (-1);
 	}
 	
 	public double getModulo(){
@@ -143,17 +154,17 @@ public class Vetor {
 		raio  = Math.sqrt(Math.pow(x,2d)+ Math.pow(y,2d));
 	}
 	
-	private void calcDirecao(){
+/*	private void calcDirecao(){
 		direcao = Math.atan2(45,45)*(180/Math.PI);
-	}
+	}*/
 	
-	private void calcXY(){
+/*	private void calcXY(){
 		x = Math.cos(direcao)*raio;
 		y = Math.sin(direcao)*raio;
-	}
+	}*/
 	
 	public void paint(java.awt.Graphics g){
 		g.drawLine(100, 100,100 +(int)x, 100+(int)y);
 	}
-
+	
 }

@@ -12,7 +12,7 @@ import javax.swing.JApplet;
 import com.professordelphi.engine.MediaCenter;
 
 public class AppletGeral extends JApplet implements KeyListener{
-	
+
 	Fase01 inicio,cenario;
 	Container tela;
 	int x = 0;
@@ -20,9 +20,9 @@ public class AppletGeral extends JApplet implements KeyListener{
 	Image imgFundo;
 	URL urlFundo;
 	MediaCenter mediaCenter;
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	/**Comentários para o Javadoc para o método Init
 	 * 
 	 */
@@ -30,17 +30,18 @@ public class AppletGeral extends JApplet implements KeyListener{
 	public void init(){
 		setSize(500, 500);
 		mediaCenter = new MediaCenter(this);
-		
+
 		tela = this.getContentPane();
 		this.setLayout(null);/*Desativa o gerenciador de Layout*/
-			this.addKeyListener(this);
-			this.requestFocus();
-			iniciar();
+		this.addKeyListener(this);
+		this.requestFocus();
+		iniciar();
 	}
-	
+
 	public void stop(){
+		
 	}
-	
+
 	private void iniciar(){
 		mediaCenter.add("img/mosquito.png");
 		mediaCenter.add("img/enemy1.png");

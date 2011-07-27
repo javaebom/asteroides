@@ -9,6 +9,7 @@ import javax.swing.JApplet;
 
 import com.professordelphi.engine.Cenario;
 import com.professordelphi.engine.Sprite;
+import com.professordelphi.engine.Vetor;
 
 public class Nave extends Sprite{
 	private boolean atirando = false;
@@ -29,6 +30,7 @@ public class Nave extends Sprite{
 		//this.cenario = c;
 		setPasso(1.5);
 		c.addPrintable(missil);
+		atrito.setXY(0, 0);
 		this.c = c;
 		//---------------------------------------------
 
@@ -55,20 +57,38 @@ public class Nave extends Sprite{
 			atirando = false;
 			c.ataque(this,1, getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
 		}
-		
+
 		super.paint(g);
 		nextFrame();//muda para o proximo quadro
 	}//paint
-	
+
 	@Override
 	public void direita(){
 		if (getX2()>=500) return;
 		super.direita();
 	}
-	
+
 	@Override
 	public void esquerda(){
 		if(getX1()<=0) return;
 		super.esquerda();
+	}
+	/**Anula a gravidade.
+	 * 
+	 */
+	@Override 
+	public void mover(Vetor gravidade){
+		mover();
+	}
+	@Override
+	public void mover(){
+		if (getX2()>=500) aceleracao.setXY(-0.5, 0);
+		else
+			if (getX1()<=0) aceleracao.setXY(0.5, 0);
+		if(aceleracao.getX()>0) atrito.setXY(-.04, 0);
+		else if(aceleracao.getX()<0) atrito.setXY(.04, 0);
+		else
+			atrito.setXY(0, 0);
+		super.mover();
 	}
 }//class

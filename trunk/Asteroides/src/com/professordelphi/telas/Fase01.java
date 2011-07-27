@@ -74,4 +74,6 @@ public class Fase01 extends Cenario {
 		g.drawString("Pontos : " + acertos, 10, 10);
 		g.drawString("Perdas : " + perdas, 10, 30);
 	}
+	
+
 }
