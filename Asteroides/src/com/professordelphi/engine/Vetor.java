@@ -79,13 +79,11 @@ public class Vetor {
 	}
 	
 	public void setX(double x){
-		this.x = x;
-		setXY(x,y);
+		setXY(x,this.y);
 	}
 	
 	public void setY(double y){
-		this.y = y;
-		setXY(x,y);
+		setXY(this.x,y);
 	}
 	
 	public double getRaio(){
@@ -142,7 +140,7 @@ public class Vetor {
 	
 	
 	private void calcRaio(){
-		raio  = Math.sqrt(Math.pow(x,2)+ Math.pow(y,2));
+		raio  = Math.sqrt(Math.pow(x,2d)+ Math.pow(y,2d));
 	}
 	
 	private void calcDirecao(){

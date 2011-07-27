@@ -1,32 +1,40 @@
 package teste.professordelphi.engine;
 
 import java.util.Calendar;
-
 import junit.framework.TestCase;
-import org.junit.*;
-
+import org.junit.BeforeClass;
+import org.junit.Test;
 import com.professordelphi.engine.Vetor;
 
 public class VetorTeste extends TestCase{
 	Vetor v;
-	
-	@Test
+
+	@BeforeClass
 	public void inicio(){
 		v = new Vetor(2d,2d);
 		System.out.println("Classe de teste iniciada " + Calendar.getInstance().toString());
 	}
-	
+	/**execução 100.000 vezes 
+	 * 
+	 */
 	@Test
 	public void testVetorDoubleDouble() {
 		v = new Vetor(2d,2d);
-		v.setX(2d);
-		v.setY(2d);
-		assertEquals(Math.sqrt(8), v.getRaio());
+		double x,y;
+		for (int i = 0; i < 100000; i++) {
+			x = Math.random()*100;
+			y = Math.random()*100; 
+			v.setXY(x,y);
+			assertEquals(Math.sqrt(Math.pow(x, 2d)+Math.pow(y, 2d)), v.getRaio());		
+		}
 	}
 
 	@Test
 	public void testProdutoInterno() {
-		
+		CPF cpf = new CPF();
+		for (int i = 0; i < 10000; i++) {
+			assertTrue(cpf.validar(CPF.getCPF()));
+		}
 	}
 
 	@Test
@@ -36,18 +44,34 @@ public class VetorTeste extends TestCase{
 
 	@Test
 	public void testSomarDoubleDouble() {
-		
+
 		fail("Not yet implemented"); // TODO
 	}
 
-	@Test
+	@Test(timeout=500)
 	public void testSomarVetor() {
-		fail("Not yet implemented"); // TODO
+		v = new Vetor(0d,0d);
+		double x=0,y=0,x2=0d,y2=0d;
+		for (int i = 0; i < 10000; i++) {
+			x = Math.random()*10;
+			y = Math.random()*10;
+			v.somar(x, y);
+			x2+= x;y2+=y;
+			assertEquals(Math.sqrt(Math.pow(x2, 2d)+Math.pow(y2, 2d)), v.getRaio());
+		}
 	}
 
 	@Test
 	public void testSubtrairDoubleDouble() {
-		fail("Not yet implemented"); // TODO
+		v = new Vetor(200d,200d);
+		double x=0,y=0,x2=200d,y2=200d;
+		for (int i = 0; i < 10000; i++) {
+			x = Math.random()*10;
+			y = Math.random()*10;
+			v.subtrair(x, y);
+			x2-= x;y2-=y;
+			assertEquals(Math.sqrt(Math.pow(x2, 2d)+Math.pow(y2, 2d)), v.getRaio());
+		}
 	}
 
 	@Test
