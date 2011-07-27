@@ -70,23 +70,6 @@ public class CPF {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(new CPF("008.317.565-27").validar());
 		System.out.println(new CPF().validar(CPF.getCPF()));
 	}
-	/* 17045081812
-	 * 123456789
-	 * 
-	 * 1
-	 * 14
-	 * 0
-	 * 16
-	 * 25
-	 * 0
-	 * 56
-	 * 8
-	 * 72
-	 * -------
-	 * 192 % 11 = 5
-	 * 
-	 */
 }
