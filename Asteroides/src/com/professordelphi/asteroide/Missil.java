@@ -28,6 +28,7 @@ public class Missil extends Sprite implements Printable{
 			addQuadro(0, 62*i, 32, 62*(i+1));
 		}
 		setPasso(2.);
+		aceleracao.setXY(0, -0.8);
 		setExibeLife(false);
 	}
 	public void show(){
@@ -41,7 +42,7 @@ public class Missil extends Sprite implements Printable{
 	@Override
 	public void paint(Graphics g){
 		if(!isVisible()) return;
-		subir();
+		mover();
 		if (getY1()<0) hide();
 		super.paint(g);
 		nextFrame();//muda para o proximo quadro

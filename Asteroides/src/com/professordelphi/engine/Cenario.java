@@ -24,7 +24,7 @@ public class Cenario extends JPanel implements Runnable{
 		lista = new ArrayList<Printable>();//Inicialização da lista
 		this.imgFundo = imgFundo;//Atribuição da imagem recebida em argumento
 		controle = new Thread(this);
-		gravidade = new Vetor(0, .03);
+		gravidade = new Vetor(0, .1);
 		controle.start();
 	}
 	@Override
