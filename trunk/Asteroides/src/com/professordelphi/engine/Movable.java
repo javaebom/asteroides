@@ -6,7 +6,7 @@ public class Movable implements Colidivel{
 	protected Vetor atrito, aceleracao, vDireita, vEsquerda;
 
 	public Movable(){
-		atrito = new Vetor(0,-.02d);
+		atrito = new Vetor(0,.3);
 		aceleracao = new Vetor();
 		vDireita = new Vetor( 0.05, 0);
 		vEsquerda= new Vetor(-0.05, 0);
@@ -17,17 +17,16 @@ public class Movable implements Colidivel{
 
 	}
 	public void mover(Vetor gravidade){
-		if(gravidade.getRaio()+aceleracao.getRaio()<passo)
+		//if(gravidade.getRaio()+aceleracao.getRaio()<passo)
 			aceleracao.somar(gravidade);
 		mover();
 	}
 
 	public void mover(){
 		setLocation(x1+aceleracao.getX(), y1+aceleracao.getY());
-		//atrito.inverter(aceleracao);
-		if(aceleracao.getX()>atrito.getX()||aceleracao.getY()>atrito.getY())// aplicação da gravidad3
-			if(aceleracao.getRaio()<passo)
-			aceleracao.somar(atrito);
+		atrito.inverter(aceleracao);
+			if(aceleracao.getX()>atrito.getX()||aceleracao.getY()>atrito.getY())// aplicação da gravidad3
+		aceleracao.somar(atrito);
 	}
 
 	public void subir(){
