@@ -34,7 +34,7 @@ public class Vetor {
     }
     
     public String toString(){
-    	return "X:" + x + " , Y:" + y + " Raio:" + raio;
+    	return "X:" + getX() + " , Y:" + getY() + " Raio:" + getRaio() + " �ngulo : " + getDirecao()*(180/Math.PI);
     }
     
     
@@ -60,8 +60,16 @@ public class Vetor {
 		calcRaio();
 		calcDirecao();
 	}
+	/**Este m�todo faz a subtra��o do raio informado e resolve o problema de 
+	 * tamanho do raio subtraido ser maior que o raio do vetor em que ser� removido.
+	 * 
+	 * @param v
+	 */
 	public void subtrair(Vetor v){
+		double raio_anterior = v.getRaio();
+		if(raio_anterior>raio) v.setRaio(raio);
 		subtrair(v.getX(),v.getY());
+		v.setRaio(raio_anterior);//devolve o valor original para o objeto par�metro
 	}
 	
 	/**Informar o valor em radianos : um círculo = 2*Pi
@@ -69,6 +77,7 @@ public class Vetor {
 	 * @param direcao
 	 */
 	public void setDirecao(double direcao){
+		direcao = direcao==Double.NaN?0:direcao;
 		this.direcao = direcao;
 		calcXY();
 	}
@@ -79,6 +88,7 @@ public class Vetor {
 	 * @param angulo
 	 */
 	public void setDirecaoGraus(double angulo){
+		angulo = angulo==Double.NaN?0:angulo;
 		setDirecao(((angulo%360)/180)*Math.PI);
 	}
 	
@@ -104,6 +114,7 @@ public class Vetor {
 	}
 	
 	public double getRaio(){
+		raio = raio==Double.NaN?0:raio;
 		return raio;
 	}
 	
@@ -116,7 +127,7 @@ public class Vetor {
 	 * @return
 	 */
 	public int getXParaORaio(double r){
-		return round(Math.cos(direcao)*r);
+		return round(Math.cos(getDirecao())*r);
 	}
 	
 	/**Função para arredondamento(Encapsulamento do cast (int)2.5 ).
@@ -136,6 +147,7 @@ public class Vetor {
 	 * @return
 	 */
 	public double getDirecao(){
+		direcao = direcao==Double.NaN?0:direcao;
 		return direcao;
 	}
 	
@@ -154,12 +166,9 @@ public class Vetor {
 	 * @param v
 	 */
 	public void inverter(Vetor v){
-		System.out.println("Invertendo a direção ...");
-		System.out.println("Direção a ser invertida : " + v.getDirecao());
 		direcao = (v.getDirecao()+Math.PI);
 		direcao = direcao>Math.PI*2?direcao-Math.PI*2:direcao;
 		setDirecao(direcao);//para atualização dos calculos necessários
-		System.out.println("Resultado da inverção : " + direcao);
 	}
 	
 	public double getModulo(){

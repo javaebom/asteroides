@@ -24,6 +24,8 @@ public class Mosquito extends Sprite {
 		this.setWidth(32);
 		this.reset();
 		setPasso(0.5);
+		atrito.setRaio(0.9d);
+		aceleracao.setRaioLimite(1);
 		c.addPrintable(this);		
 	}
 	

@@ -31,21 +31,21 @@ public class Nave extends Sprite{
 		setPasso(1.5);
 		c.addPrintable(missil);
 		this.c = c;
-		vDireita.setXY(.5d, 0);
-		atrito.setRaio(0.5);
-		vEsquerda.setXY(-.5d, 0);
-		//aceleracao.setRaio(1);
+		vDireita.setXY(2d, 0);
+		atrito.setRaio(0.02);
+		vEsquerda.setXY(-2d, 0);
 		aceleracao.setRaioLimite(1.5);
+		aceleracao.setXY(.0, .0);
 		//---------------------------------------------
 
 	}
 	@Override
 	public void paint(Graphics g) {
-		if(teclas[37]) esquerda();
+		if(teclas[37]){
+			esquerda();
+		}
 		if(teclas[39]){
 			direita();
-			System.out.println("Aceleracao : " + aceleracao);
-			System.out.println("Atrito : " + atrito);
 		}
 		if(teclas[32]) {
 			atirando = true;
@@ -88,15 +88,15 @@ public class Nave extends Sprite{
 	public void mover(Vetor gravidade){
 		mover();
 	}
-//	@Override
-//	public void mover(){
-//		if (getX2()>=500) aceleracao.setXY(-0.5, 0);
-//		else
-//			if (getX1()<=0) aceleracao.setXY(0.5, 0);
+	@Override
+	public void mover(){
+		if (getX2()>=500) aceleracao.setXY(-0.5, 0);
+		else
+			if (getX1()<=0) aceleracao.setXY(0.5, 0);
 //		if(aceleracao.getX()>0) atrito.setXY(-.04, 0);
 //		else if(aceleracao.getX()<0) atrito.setXY(.04, 0);
 //		else
 //			atrito.setXY(0, 0);
-//		super.mover();
-//	}
+		super.mover();
+	}
 }//class
