@@ -171,9 +171,16 @@ public class Vetor {
 	 *
 	 */
 	public static void main(String arg[]){
-		Vetor a = new Vetor(0d,0d);
+
+
+
+		Vetor a = new Vetor(0d,-10d), b = new Vetor(10,0);
+		double x = (a.getX()*b.getX() + a.getY() * b.getY()) /
+		           a.getRaio() * b.getRaio();
 		
+		System.out.println("X : " + x);
 		System.out.println((a.getDirecao()*(360/(Math.PI*2))));
+
 
 	}
 	
@@ -195,6 +202,7 @@ public class Vetor {
 	public void paint(java.awt.Graphics g){
 		g.drawLine(100, 100,100 +(int)x, 100+(int)y);
 	}
+
 	public void setRaioLimite(double l){
 		raioLimite = l;
 	}
