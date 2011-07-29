@@ -64,7 +64,7 @@ public class Vetor {
 		subtrair(v.getX(),v.getY());
 	}
 	
-	/**Informar o valor em radianos : um círculo = 2*Pi
+	/**Informar o valor em radianos : um cÃ­rculo = 2*Pi
 	 * 
 	 * @param direcao
 	 */
@@ -74,7 +74,7 @@ public class Vetor {
 	}
 	
 	/**Informar o valor em graus : 0 -> 360 </br>
-	 * OBS: o ângulo 0(zero) fica ao lado direito (3 horas)
+	 * OBS: o Ã¢ngulo 0(zero) fica ao lado direito (3 horas)
 	 * 
 	 * @param angulo
 	 */
@@ -110,7 +110,7 @@ public class Vetor {
 	public double getX(){
 		return x;
 	}
-	/**Retorna o valor da posição X para o raio informado de acordo ângulo atual.
+	/**Retorna o valor da posiÃ§Ã£o X para o raio informado de acordo Ã¢ngulo atual.
 	 * 
 	 * @param r
 	 * @return
@@ -119,7 +119,7 @@ public class Vetor {
 		return round(Math.cos(direcao)*r);
 	}
 	
-	/**Função para arredondamento(Encapsulamento do cast (int)2.5 ).
+	/**FunÃ§Ã£o para arredondamento(Encapsulamento do cast (int)2.5 ).
 	 * 
 	 * @param v
 	 * @return
@@ -131,7 +131,7 @@ public class Vetor {
 	public double getY(){
 		return y;
 	}	
-	/**Retorna a direção do vetor em Radianos.
+	/**Retorna a direÃ§Ã£o do vetor em Radianos.
 	 * 
 	 * @return
 	 */
@@ -143,30 +143,30 @@ public class Vetor {
 	public void multiplicar(double v){
 		x = v*x;
 		y = v*y;
-		calcRaio();//a direção continua a mesma
+		calcRaio();//a direÃ§Ã£o continua a mesma
 	}
 	
 	public void inverter(){
 		inverter(this);
 	}
-	/**Inverte a direção do vetor.
+	/**Inverte a direÃ§Ã£o do vetor.
 	 * 
 	 * @param v
 	 */
 	public void inverter(Vetor v){
-		System.out.println("Invertendo a direção ...");
-		System.out.println("Direção a ser invertida : " + v.getDirecao());
+		System.out.println("Invertendo a direÃ§Ã£o ...");
+		System.out.println("DireÃ§Ã£o a ser invertida : " + v.getDirecao());
 		direcao = (v.getDirecao()+Math.PI);
 		direcao = direcao>Math.PI*2?direcao-Math.PI*2:direcao;
-		setDirecao(direcao);//para atualização dos calculos necessários
-		System.out.println("Resultado da inverção : " + direcao);
+		setDirecao(direcao);//para atualizaÃ§Ã£o dos calculos necessÃ¡rios
+		System.out.println("Resultado da inverÃ§Ã£o : " + direcao);
 	}
 	
 	public double getModulo(){
 		return raio;
 	}
 	
-	/** Método principal para teste da classe
+	/** MÃ©todo principal para teste da classe
 	 *
 	 *
 	 */
@@ -190,8 +190,9 @@ public class Vetor {
 	}
 	
 	private void calcDirecao(){
-		//vetor para orientação (1,0)
+		//vetor para orientaÃ§Ã£o (1,0)
 		direcao = Math.acos((x*1+y*0)/(calcModulo(x, y)*1));
+  direcao = y>0?direcao+Math.PI:direcao;
 	}
 	
 	private void calcXY(){
