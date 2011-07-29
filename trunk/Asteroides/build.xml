@@ -1,0 +1,35 @@
+<project>
+	<property name="app.dir" value="."/>
+	<property name="src.dir" value="${app.path}/src" />
+	<property name="bin.dir" value="${app.dir}/bin" />
+	<property name="doc.dir" value="${app.dir}/doc"/>
+
+	<target name="prepare">
+		<delete dir="${doc.src}" />
+	    <mkdir dir="${doc.dir}"/>	
+	</target>
+	
+	<target name="documentação" depends="prepare">
+		<javadoc
+			sourcepath="src"
+			destdir="doc"
+			author="true"
+			version="true"
+			>
+			<packageset dir="${doc.dir}" defaultexcludes="yes">
+				<include name="src/com/professordelphi/asteroide/**" />
+			
+			</packageset>
+			
+			<doctitle>Documentação Asteroides</doctitle>
+		
+		</javadoc>
+	</target>
+	
+	<target name="Compilar">
+		<javac >
+		
+		</javac>
+	</target>
+
+</project>
