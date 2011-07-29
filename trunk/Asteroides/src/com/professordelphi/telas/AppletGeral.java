@@ -43,9 +43,9 @@ public class AppletGeral extends JApplet implements KeyListener{
 	}
 
 	private void iniciar(){
-		mediaCenter.add("img/mosquito.png");
-		mediaCenter.add("img/enemy1.png");
-		mediaCenter.start();
+//		mediaCenter.add("img/mosquito.png");
+//		mediaCenter.add("img/enemy1.png");
+//		mediaCenter.start();
 		inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
 		tela.add(inicio);// Adicionando o cenário 'inicio' no container
 	}

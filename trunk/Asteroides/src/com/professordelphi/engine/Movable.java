@@ -18,15 +18,15 @@ public class Movable implements Colidivel{
 	}
 	public void mover(Vetor gravidade){
 		//if(gravidade.getRaio()+aceleracao.getRaio()<passo)
-			aceleracao.somar(gravidade);
+		aceleracao.somar(gravidade);
 		mover();
 	}
 
 	public void mover(){
+		atrito.setDirecao(aceleracao.getDirecao());
+		if(aceleracao.getRaio()>atrito.getRaio())// aplicação da gravidad3
+			aceleracao.subtrair(atrito);
 		setLocation(x1+aceleracao.getX(), y1+aceleracao.getY());
-		atrito.inverter(aceleracao);
-			if(aceleracao.getX()>atrito.getX()||aceleracao.getY()>atrito.getY())// aplicação da gravidad3
-		aceleracao.somar(atrito);
 	}
 
 	public void subir(){
@@ -48,10 +48,8 @@ public class Movable implements Colidivel{
 	}
 
 	public strictfp void setLocation(double x,double y){
-
 		setX2((x2-x1)+x);
 		setX1(x);
-
 		setY2((y2-y1)+y);
 		setY1(y);
 	}

@@ -45,7 +45,10 @@ public class TestVetor extends TestCase{
 	 */
 	@Test
 	public void testSetXY() {
-		fail("Not yet implemented"); // TODO
+		Vetor a = new Vetor();
+		a.setRaio(5);
+		a.setRaio(.0);
+		System.out.println(a);
 	}
 
 	/**
@@ -53,16 +56,21 @@ public class TestVetor extends TestCase{
 	 */
 	@Test
 	public void testInverter() {
+		int maximo_iteracoes=0;
 		a = new Vetor();
-		b = new Vetor(0,2);
-		System.out.println("Ângulo de b com 0,2 " + b.getDirecao());
-		System.out.println("pi * 1.5 : " + Math.PI*1.5);
-		a.setXY(2, 0);
-		assertEquals(a.getDirecao(), 0d);
-		b.setDirecao(Math.PI*1.5);
-		b.inverter();
-		assertEquals(Math.PI/2, b.getDirecao());
 		
+		b = new Vetor(-10,-10);
+		a.setRaio(5);//aceleração
+		b.setRaio(0.8);//resistencia
+		while (!(a.getModulo()==0||maximo_iteracoes>=1000)) {
+			a.setDirecao(Math.random()* Math.PI * 2);
+			b.setDirecao(a.getDirecao());
+			a.subtrair(b);
+			maximo_iteracoes++;
+		}
+		System.out.println("Iterações : " + maximo_iteracoes);
+		System.out.println("Aceleracao : " + a);
+		System.out.println("Atrito : " + b);
 	}
 
 }
