@@ -39,12 +39,10 @@ public class Movable implements Colidivel{
 
 	public void direita(){
 		aceleracao.somar(vDireita);
-		//setLocation((x1+getPasso()), getY1());
 	}
 
 	public void esquerda(){
 		aceleracao.somar(vEsquerda);
-		//setLocation((x1-getPasso()), getY1());
 	}
 
 	public strictfp void setLocation(double x,double y){

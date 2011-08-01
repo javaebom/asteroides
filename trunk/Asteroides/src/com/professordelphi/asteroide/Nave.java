@@ -31,10 +31,10 @@ public class Nave extends Sprite{
 		setPasso(1.5);
 		c.addPrintable(missil);
 		this.c = c;
-		vDireita.setXY(2d, 0);
-		atrito.setRaio(0.02);
-		vEsquerda.setXY(-2d, 0);
-		aceleracao.setRaioLimite(1.5);
+		vDireita.setXY(.2, 0);
+		atrito.setRaio(0.002);
+		vEsquerda.setXY(-0.2d, 0);
+		aceleracao.setRaioLimite(8);
 		aceleracao.setXY(.0, .0);
 		//---------------------------------------------
 
@@ -74,6 +74,12 @@ public class Nave extends Sprite{
 	public void direita(){
 		if (getX2()>=500) return;
 		super.direita();
+		/*
+		if(aceleracao.getDirecao()>1){
+			vDireita.setRaio(aceleracao.getRaio());
+			aceleracao.somar(vDireita);
+		}
+		*/
 	}
 
 	@Override
@@ -99,4 +105,5 @@ public class Nave extends Sprite{
 //			atrito.setXY(0, 0);
 		super.mover();
 	}
+	
 }//class
