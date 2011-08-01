@@ -5,14 +5,14 @@
 	<property name="bin.dir" value="${app.dir}\bin" />
 	<property name="doc.dir" value="${app.dir}\doc"/>
 	<property name="rep.dir"  value="${app.dir}\report"/>
+	<property name="rep.xml" value="${rep.dir}\xml"/>
 	
 	<target name="prepare">
-		<delete dir="${doc.src}" />
+		<delete dir="${doc.dir}" includes="*.html"/>
 	    <mkdir dir="${doc.dir}"/>	
 		<mkdir dir="${rep.dir}"/>
-		<mkdir dir="${rep.dir}/xml"/>
-		<mkdir dir="${rep.dir}/html"/>
-				
+		<mkdir dir="${rep.xml}"/>
+		<mkdir dir="${rep.dir}\html"/>		
 	</target>
 	
 	<target name="documentação" depends="prepare">
@@ -32,25 +32,27 @@
 		</javadoc>
 	</target>
 	
-	<target name="compilar">
+	<target name="compilar" depends="prepare">
 		<javac destdir="bin" srcdir="src">
 		
 		</javac>
 	</target>
 	
-	<target name="testar" depends="compilar">
-		<echo message="Doretorio src : ${src.dir}"/>
-		<junit fork="no" haltonerror="no" haltonfailure="no" printsummary="yes" >
-			<formatter type="xml"/>
+	<target name="testar" >
+		<junit printsummary="yes" fork="no" haltonerror="no" haltonfailure="no">
+			<formatter type="plain"/>
+			
 			<batchtest todir="report/xml" fork="no" >
-				<fileset dir="src" >
+				<formatter type="xml"/>
+				<fileset dir="." >
 					<include name="**teste\professordelphi\engine\Test*.java"/>
 				</fileset>
 			</batchtest>
+
 		</junit>
 	</target>
 
-	<target name="report_html" depends="testar">
+	<target name="report_html" depends="prepare,testar">
 		<junitreport description="Relatorio dos testes" todir="${rep.dir}/html">
 			<fileset dir="${rep.dir}/xml">
 				<include name="TES*.xml"/>
@@ -60,7 +62,12 @@
 	</target>
 	
 	<target name="executar" depends="compilar">
-		<java dir="${bin.dir}" classpathref="${bin.dir}" 
-			classname="com.professordelphi.engine.Vetor" classpath="bin,${java.home}/lib"/>
+		<echo message="${bin.dir}"/>
+		<java 
+			classname="com.professordelphi.engine.Vetor" classpath="${bin.dir}"/>
+	</target>
+	
+	<target name="X">
+	
 	</target>
 </project>
