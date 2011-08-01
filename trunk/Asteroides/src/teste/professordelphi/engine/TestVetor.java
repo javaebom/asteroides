@@ -23,7 +23,7 @@ public class TestVetor extends TestCase{
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+		System.out.println("setUpBeforeClass");
 	}
 
 	/**
@@ -31,6 +31,7 @@ public class TestVetor extends TestCase{
 	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		System.out.println("tearDownAfterClass");
 	}
 
 	/**
@@ -49,6 +50,7 @@ public class TestVetor extends TestCase{
 		a.setRaio(5);
 		a.setRaio(.0);
 		System.out.println(a);
+		
 	}
 
 	/**
