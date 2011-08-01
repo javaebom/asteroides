@@ -1,5 +1,5 @@
-
-<project>
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project name="Testes" default="report_html">
 	<property name="app.dir" value="${basedir}"/>
 	<property name="src.dir" value="${app.dir}\src" />
 	<property name="bin.dir" value="${app.dir}\bin" />
@@ -7,20 +7,26 @@
 	<property name="rep.dir"  value="${app.dir}\report"/>
 	<property name="rep.xml" value="${rep.dir}\xml"/>
 	
-	<target name="prepare">
-		<delete dir="${doc.dir}" includes="*.html"/>
+	<target name="prepare" description="Criação das pastas" >
 	    <mkdir dir="${doc.dir}"/>	
 		<mkdir dir="${rep.dir}"/>
 		<mkdir dir="${rep.xml}"/>
 		<mkdir dir="${rep.dir}\html"/>		
 	</target>
 	
-	<target name="documentação" depends="prepare">
+	<target name="clean" description="Limpar os arquivos ciados anteriormente">
+		<delete dir="${doc.dir}" includes="*.html"/>
+		<delete dir="${rep.xml}" includes="*.xml"/>
+		<delete dir="${rep.dir}\html" includes="*.html"/>
+	</target>
+	
+	<target name="documentacao" depends="prepare,clean">
 		<javadoc
 			sourcepath="src"
 			destdir="doc"
 			author="true"
 			version="true"
+			verbose="true"
 			>
 			<packageset dir="${doc.dir}" defaultexcludes="yes">
 				<include name="src/com/professordelphi/asteroide/**" />
@@ -33,26 +39,31 @@
 	</target>
 	
 	<target name="compilar" depends="prepare">
-		<javac destdir="bin" srcdir="src">
+		<javac destdir="bin" srcdir="src" optimize="yes">
 		
 		</javac>
 	</target>
 	
-	<target name="testar" >
-		<junit printsummary="yes" fork="no" haltonerror="no" haltonfailure="no">
-			<formatter type="plain"/>
-			
-			<batchtest todir="report/xml" fork="no" >
-				<formatter type="xml"/>
-				<fileset dir="." >
-					<include name="**teste\professordelphi\engine\Test*.java"/>
-				</fileset>
-			</batchtest>
-
-		</junit>
+	<target name="testar" description="Execução dos testes" depends="clean">
+		<echo message="Inicio do teste"/>
+		<junit printsummary="yes" fork="yes" haltonfailure="no">
+		   <!-- Define que o formato de saída dos testes é XML -->
+		   <!-- Usaremos XSLT para transformar esse XML em HTML -->
+			  <formatter type="brief"/>
+		      <formatter type="xml" usefile="true" />
+		      <!-- Executa as classes de teste -->
+			<classpath path="bin"></classpath>
+		      <batchtest fork="no" todir="report/xml">
+		        <fileset dir="bin">
+		          <include name="/teste/professordelphi/engine/Tes*.class"/>
+		        </fileset>
+		      </batchtest>
+			<test name="teste.professordelphi.engine.Teste"/>
+		    </junit>
+		<echo message="Fim do teste"/>
 	</target>
 
-	<target name="report_html" depends="prepare,testar">
+	<target name="report_html" depends="clean,testar">
 		<junitreport description="Relatorio dos testes" todir="${rep.dir}/html">
 			<fileset dir="${rep.dir}/xml">
 				<include name="TES*.xml"/>
@@ -67,7 +78,15 @@
 			classname="com.professordelphi.engine.Vetor" classpath="${bin.dir}"/>
 	</target>
 	
-	<target name="X">
+	<target name="jar" description="Cria o arquivo jar">
+		<delete dir="${app.dir}" includes="Asteroides.jar"/>
+		<jar destfile="${app.dir}\Asteroides.jar" basedir="${bin.dir}"
+			>
+		<exclude name="/teste/professordelphi/engine/*.class"/>
+		</jar>
+	</target>
+	
+	<target name="X" description="Modelo de target">
 	
 	</target>
 </project>
