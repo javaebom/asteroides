@@ -7,7 +7,7 @@ import java.net.URL;
 
 import javax.swing.JApplet;
 
-import com.professordelphi.engine.Movable;
+import com.professordelphi.engine.Colidivel;
 import com.professordelphi.engine.Printable;
 import com.professordelphi.engine.Sprite;
 
@@ -28,15 +28,20 @@ public class Missil extends Sprite implements Printable{
 			addQuadro(0, 62*i, 32, 62*(i+1));
 		}
 		setPasso(2.);
-		aceleracao.setXY(0, -0.8);
+		atrito.setRaio(0.01);
+		hide();
 		setExibeLife(false);
 	}
 	public void show(){
 		setVisible(true);
+		setSolid(true);
+		aceleracao.setXY(0, -1.2);
 		read = false;
 	}
 	public void hide(){
 		setVisible(false);
+		aceleracao.setXY(0, 0);
+		setSolid(false);
 		read = true;
 	}
 	@Override
@@ -48,12 +53,17 @@ public class Missil extends Sprite implements Printable{
 		nextFrame();//muda para o proximo quadro
 	}
 	@Override
-	public void colidiu(Movable m){
+	public void colidiu(Colidivel c){
+		if(c instanceof Asteroide)
+			((Asteroide)c).ataque(40);
+		explodir();
+	}
+	
+	public void explodir(){
 		hide();
 	}
 	
 	public boolean isRead(){
 		return read;
 	}
-
 }
