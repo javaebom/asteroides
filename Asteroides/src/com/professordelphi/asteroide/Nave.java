@@ -32,7 +32,7 @@ public class Nave extends Sprite{
 		c.addPrintable(missil);
 		this.c = c;
 		vDireita.setXY(.2, 0);
-		atrito.setRaio(0.002);
+		atrito.setRaio(0.09);
 		vEsquerda.setXY(-0.2d, 0);
 		aceleracao.setRaioLimite(8);
 		aceleracao.setXY(.0, .0);
@@ -65,6 +65,8 @@ public class Nave extends Sprite{
 			atirando = false;
 			c.ataque(this,1, getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
 		}
+		g.setColor(Color.red);
+		g.fillRect(30, 10, (int)(aceleracao.getRaio()*50), 5);
 
 		super.paint(g);
 		nextFrame();//muda para o proximo quadro

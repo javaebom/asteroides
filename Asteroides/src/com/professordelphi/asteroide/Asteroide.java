@@ -5,15 +5,18 @@ import java.net.URL;
 import javax.swing.JApplet;
 
 import com.professordelphi.engine.Cenario;
+import com.professordelphi.engine.Colidivel;
 import com.professordelphi.engine.Sprite;
 import com.professordelphi.telas.Fase01;
 
 public class Asteroide extends Sprite{
-
+	private static int count=0;
 	private boolean explodindo = false;
+	private int id=-1;
 	private Cenario c=null;
 	public Asteroide(JApplet applet,Cenario c) throws Exception{
 		super(applet.getImage(new URL(applet.getDocumentBase(),"img/enemy1.png")));
+		this.id  = ++count;
 		this.addQuadro(0, 1, 32, 31);       // 0
 		this.addQuadro(32, 1, 32+32, 31);   // 1
 		this.addQuadro(67, 3, 26+67, 26+3); // 2
@@ -59,12 +62,13 @@ public class Asteroide extends Sprite{
 	}
 
 	public void reset(){
-		this.setLocation((int)((Math.random()*500)-this.getWidth())+getWidth(), 
+		this.setLocation((int)(Math.random()*(500-this.getWidth())), 
 				(int)(Math.random()*60));
 		explodindo = false;
 		aceleracao.setXY(0, 0);//zera a movimentação
 		setLife(100);
 		setQuadroAtual(0);
+		setSolid(true);
 	}
 
 	public boolean isExplodindo() {
@@ -76,7 +80,8 @@ public class Asteroide extends Sprite{
 	}
 
 	public void explodir(){
-		if(explodindo) return ;		
+		if(explodindo) return ;
+		setSolid(false);
 		setExplodindo(true);
 	}
 	
@@ -90,8 +95,19 @@ public class Asteroide extends Sprite{
 		return false;
 	}
 	
-/*	@Override
-	public void mover(Vetor gravidade){
-		mover();
-	}*/
+	/**Retorna o número da instancia deste objeto , 
+	 * toda vez que é criado um novo Asteroide , é criado um 
+	 * identificador único para instacia criada.
+	 * 
+	 * @return Valor inteiro que identifica de forma únca este objeto
+	 */
+	public int getId(){
+		return this.id;
+	}
+	
+	@Override
+	public void colidiu(Colidivel c){
+		explodir();
+		System.out.println("Colisão com o asteroide : " + this.getId());
+	}
 }
