@@ -2,7 +2,6 @@ package com.professordelphi.telas;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.io.File;
 import java.net.URL;
 
 import javax.swing.JApplet;
@@ -11,6 +10,8 @@ import com.professordelphi.asteroide.Asteroide;
 import com.professordelphi.asteroide.Missil;
 import com.professordelphi.asteroide.Nave;
 import com.professordelphi.engine.Cenario;
+import com.professordelphi.engine.Colidivel;
+import com.professordelphi.engine.Printable;
 
 public class Fase01 extends Cenario {
 	Image imgFundo, imgNave, imgAsteroides;
@@ -30,16 +31,8 @@ public class Fase01 extends Cenario {
 		    addPrintable(new Asteroide(applet, this));
 //		    addPrintable(new Mosquito(applet, this));
 		    
-		    
 		    imgFundo = applet.getImage(new URL(applet.getDocumentBase(),"img/fundo ok.jpg"));
-		    File file = new File("img/cenario1.png");
-		    if (file.isFile()) {
-				System.out.println("arquivo cenario1 encontrado");
-			}else
-				System.out.println("arquivo não encntrado\n"+
-						file.exists());
 		    setImgFundo(imgFundo);
-		    
 		    setBounds(0, 0, 500, 500);
 		    
 		    this.repaint();
@@ -47,6 +40,13 @@ public class Fase01 extends Cenario {
 		}catch(Exception e){
 			System.out.println("erro ao iniciar o fase1");
 		}
+	}
+	
+	@Override
+	public void addPrintable(Printable p){
+		if(p instanceof Colidivel)
+			addColidivel((Colidivel)p);
+		super.addPrintable(p);
 	}
 
 	/**
@@ -73,6 +73,4 @@ public class Fase01 extends Cenario {
 		g.drawString("Pontos : " + acertos, 10, 10);
 		g.drawString("Perdas : " + perdas, 10, 30);
 	}
-	
-
 }
