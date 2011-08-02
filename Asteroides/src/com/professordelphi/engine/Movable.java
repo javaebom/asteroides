@@ -2,6 +2,7 @@ package com.professordelphi.engine;
 
 public class Movable implements Colidivel{
 	private double x1,x2,y1,y2 ;
+	private boolean solid=true;
 	private double passo = 1;
 	protected Vetor atrito, aceleracao, vDireita, vEsquerda;
 
@@ -12,10 +13,6 @@ public class Movable implements Colidivel{
 		vEsquerda= new Vetor(-0.05, 0);
 	}
 
-	@Override
-	public void colidiu(Movable m) {
-
-	}
 	public void mover(Vetor gravidade){
 		//if(gravidade.getRaio()+aceleracao.getRaio()<passo)
 		aceleracao.somar(gravidade);
@@ -133,5 +130,25 @@ public class Movable implements Colidivel{
 	@Override
 	public int getY() {
 		return (int)y1;
+	}
+	@Override
+	public int getRaio(){
+		return getX1()+getWidth()/2;
+	}
+	@Override 
+	public boolean isSolid(){
+		return solid;
+	}
+	public void setSolid(boolean value){
+		this.solid = value;
+	}
+
+	@Override
+	public void colidiu(Colidivel c) {
+		// TODO Auto-generated method stub
+	}
+	
+	public String toString(){
+		return "X:" + getX1() + " Y:" + getY1() + " Width:" + getWidth() + " Height:" + getHeight(); 
 	}
 }
