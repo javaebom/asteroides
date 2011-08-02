@@ -14,6 +14,11 @@ public class Cenario extends JPanel implements Runnable{
 	private Vetor gravidade;
 	private long timer=0;
 	private ArrayList<Printable> lista;//Lista de sprites que serão pintados na tela
+	
+	/**Lista dos objetos que estarão sucetiveis de tratamento de colisão.
+	 * 
+	 */
+	private ColisionCenter colisionCenter;
 
 	/**
 	 * 
@@ -47,6 +52,7 @@ public class Cenario extends JPanel implements Runnable{
 				}
 			lista.get(i).paint(g);
 		}
+		getColisionCenter().verifica();
 		timer = ++timer%Long.MAX_VALUE;
 	}
 	public void setImgFundo(Image img){
@@ -62,7 +68,7 @@ public class Cenario extends JPanel implements Runnable{
 				Thread.sleep(10);
 				this.repaint();
 			} catch (Exception e) {
-
+				System.out.println("Erro no gameLoop : " + e.getMessage());
 			}
 		}
 	}
@@ -84,11 +90,40 @@ public class Cenario extends JPanel implements Runnable{
 				((Sprite)(p)).keyUp(tecla);
 		}
 	}
-
+	
+	/**Distribui um ataque para todos os objetos Sprites da fase se estejam situados na área 
+	 * delimitada pelas cordenadas informadas no parâmetro.
+	 * 
+	 * @param m Objeto do tipo Moveble o qual disparaou o evento e não será afetado.
+	 * @param intencidade informa o nível do ataque.
+	 * @param x inicio a área a ser afetada pelo ataque.
+	 * @param y inicio superior da área a ser afetada pelo ataque.
+	 * @param x2 ponto lateral direito ada área a ser afetada pelo ataque.
+	 * @param y2 ponto vertical inferior da área a ser afetada pelo ataque.
+	 */
 	public void ataque(Movable m,int intencidade ,int x,int y,int x2,int y2){
 		for (Printable p:lista) 
 			if (p instanceof Sprite && p != m) 
 				if(x>=((Sprite)p).getX1() && x2<=((Sprite)p).getX2())
 					((Sprite)p).ataque(intencidade);
+	}
+	
+	/**Método get para verificalção da disponibilidade do objeto.
+	 * 
+	 * @return Lista dos objetos sucetiveis de tratamento de colisão.
+	 */
+	public ColisionCenter getColisionCenter() {
+		if (colisionCenter==null) 
+			colisionCenter = new ColisionCenter();
+		return colisionCenter;
+	}
+	
+	/**Adiciona um item do tipo Colidivel para ser verificado e notificado quando estiver 
+	 * em estado de colisão.
+	 * 
+	 * @param c Objeto do tipo Colidivel
+	 */
+	public void addColidivel(Colidivel c){
+		getColisionCenter().add(c);
 	}
 }
