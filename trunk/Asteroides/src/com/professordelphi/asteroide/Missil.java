@@ -24,9 +24,9 @@ public class Missil extends Sprite implements Printable{
 		setY1(150);
 		setWidth(14);
 		setHeight(26);
-		for(int i = 0; i < 13; i++){
+		for(int i = 0; i < 13; i++)
 			addQuadro(0, 62*i, 32, 62*(i+1));
-		}
+		
 		setPasso(2.);
 		atrito.setRaio(0.01);
 		hide();
@@ -54,6 +54,7 @@ public class Missil extends Sprite implements Printable{
 	}
 	@Override
 	public void colidiu(Colidivel c){
+		if(c instanceof Nave) return;
 		if(c instanceof Asteroide)
 			((Asteroide)c).ataque(40);
 		explodir();
