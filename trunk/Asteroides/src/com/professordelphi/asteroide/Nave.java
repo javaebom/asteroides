@@ -4,17 +4,25 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.JApplet;
 
 import com.professordelphi.engine.Cenario;
 import com.professordelphi.engine.Sprite;
 import com.professordelphi.engine.Vetor;
+import com.professordelphi.telas.Fase01;
 
 public class Nave extends Sprite{
 	private boolean atirando = false;
 	private Missil missil;
+	private ArrayList<Missil> misseis;
 	private Cenario c=null;
+	private JApplet applet;
+	/**Indica um limite para lancamento de mísseis.
+	 * 
+	 */
+	private long timerDeLancamento=0;
 	//private Cenario cenario; pode ser utilizado posteriormente para tratamento de explosões
 
 	public Nave(JApplet a,Cenario c)throws MalformedURLException {
@@ -31,16 +39,17 @@ public class Nave extends Sprite{
 		setPasso(1.5);
 		c.addPrintable(missil);
 		this.c = c;
+		this.applet = a;
 		vDireita.setXY(.2, 0);
 		atrito.setRaio(0.09);
 		vEsquerda.setXY(-0.2d, 0);
 		aceleracao.setRaioLimite(8);
 		aceleracao.setXY(.0, .0);
 		//---------------------------------------------
-
 	}
 	@Override
 	public void paint(Graphics g) {
+		timerDeLancamento = timerDeLancamento>0?--timerDeLancamento:0;
 		if(teclas[37]){
 			esquerda();
 		}
@@ -51,9 +60,10 @@ public class Nave extends Sprite{
 			atirando = true;
 		}
 		if (teclas[66]&&missil.isRead()){
-			missil.setLocation(this.getX1()+(getWidth()/2)-6, this.getY1());
-			missil.show();			
+			lancar();
 		}
+		if (teclas[10])
+			((Fase01)c).ataque(this, 100, 0, 0, 500, 500);		
 
 		if(atirando) {
 			g.setColor(Color.cyan);
@@ -76,12 +86,17 @@ public class Nave extends Sprite{
 	public void direita(){
 		if (getX2()>=500) return;
 		super.direita();
-		/*
-		if(aceleracao.getDirecao()>1){
-			vDireita.setRaio(aceleracao.getRaio());
-			aceleracao.somar(vDireita);
-		}
-		*/
+	}
+	
+	public void lancar(){
+		if(timerDeLancamento!=0) return;
+		for(Missil m:getMisseis())
+			if(m.isRead()){
+				m.setLocation(this.getX1()+(getWidth()/2)-6, this.getY1());
+				m.show();
+				timerDeLancamento = 3;
+				break;
+			}
 	}
 
 	@Override
@@ -106,6 +121,23 @@ public class Nave extends Sprite{
 //		else
 //			atrito.setXY(0, 0);
 		super.mover();
+	}
+	
+	public void keyDown(byte tecla){
+		super.keyDown(tecla);
+	}
+	
+	public ArrayList<Missil> getMisseis(){
+		if (misseis==null) {
+			misseis = new ArrayList<Missil>();
+			try{
+			for (int i = 0; i < 20; i++){ 
+				misseis.add(new Missil(applet));
+				c.addPrintable(misseis.get(i));
+			}
+			}catch(Exception ex){}
+		}
+		return misseis;
 	}
 	
 }//class
