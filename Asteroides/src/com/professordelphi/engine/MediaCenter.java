@@ -1,5 +1,6 @@
 package com.professordelphi.engine;
 
+import java.applet.AudioClip;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -17,10 +18,12 @@ public class MediaCenter implements Runnable{
 	private MediaTracker tracker;
 	private JApplet applet;
 	private HashMap<String, Image> imagens;
+	private HashMap<String, AudioClip> sounds;
 	private JProgressBar progressBar;
 	private Thread controle;
 	private JDialog janela;
 	private Vector<String> listaTemporaria = new Vector<String>();
+	private Vector<String> listaURLSounds = new Vector<String>();
 
 	public MediaCenter(JApplet applet) {
 		this.applet = applet;
@@ -39,7 +42,8 @@ public class MediaCenter implements Runnable{
 	public void start(){
 		if (controle.isAlive()) return;
 		controle.start();
-		showProgress();
+		carregarSons();
+		//showProgress();
 	}
 
 	public void showProgress(){
@@ -125,9 +129,7 @@ public class MediaCenter implements Runnable{
 				total_ok += getTracker().checkID(i)?1:0;
 			}
 			
-            
-			
-			getProgressBar().setValue(total_ok);
+			//getProgressBar().setValue(total_ok);
 			if (total_ok==getImages().size()||erro) break;
 			
 			try {
@@ -141,4 +143,37 @@ public class MediaCenter implements Runnable{
 		janela = null;
 		System.out.println("Fim da Thread");
 	}//run
+	
+	private boolean carregarSons(){
+		try {
+			for (int i = 0; i < listaURLSounds.size(); i++) {
+				sounds.put(listaURLSounds.get(i), 
+						applet.getAudioClip(new URL(listaURLSounds.get(i))));
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	/**Adiciona um nome de arquivo a lista de sons .
+	 * é inportante que se use apenas o nome do arquivo e não a url completa, 
+	 * pois a url base será utilizada a da applet
+	 * 
+	 * @param arquivo
+	 */
+	public void addSound(String arquivo){
+		listaURLSounds.add(arquivo);
+	}
+	
+	public HashMap<String, AudioClip> getSounds(){
+		if (sounds==null) {
+			sounds = new HashMap<String, AudioClip>();
+		}
+		return sounds;
+	}
+	public AudioClip getSound(String chave){
+		return getSound(chave);
+	}
+	
 }//class
