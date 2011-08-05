@@ -89,6 +89,7 @@ public class Asteroide extends Sprite{
 	public boolean ataque(int intencidade){
 		super.ataque(intencidade);
 		if(getLife()<=0 && !explodindo){
+			System.out.println("Ponto marcado em asteroide");
 			((Fase01)c).acerto();
 			explodir();
 		}
@@ -108,6 +109,5 @@ public class Asteroide extends Sprite{
 	@Override
 	public void colidiu(Colidivel c){
 		explodir();
-		System.out.println("Colisão com o asteroide : " + this.getId());
 	}
 }
