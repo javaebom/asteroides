@@ -1,5 +1,6 @@
 package com.professordelphi.engine;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Cenario extends JPanel implements Runnable{
 	private Vetor gravidade;
 	private long timer=0;
 	private ArrayList<Printable> lista;//Lista de sprites que serão pintados na tela
+	protected CenarioListener cenarioListener;
 	
 	/**Lista dos objetos que estarão sucetiveis de tratamento de colisão.
 	 * 
@@ -25,23 +27,25 @@ public class Cenario extends JPanel implements Runnable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Cenario(Image imgFundo){//Construtor que recebe a imagem
+	public Cenario(CenarioListener c){//Construtor que recebe a imagem
 		super(true);//Diz ao JPanel que ele irá trabalhar com double Buffer
 		lista = new ArrayList<Printable>();//Inicialização da lista
-		this.imgFundo = imgFundo;//Atribuição da imagem recebida em argumento
+		cenarioListener = c;
 		controle = new Thread(this);
 		gravidade = new Vetor(0, .05);
 		controle.start();
 	}
 	@Override
 	public void paint(Graphics g){
+		super.paint(g);
 		Sprite sprite = null;
 		if(isPause){
+			g.setColor(Color.blue);
 			g.fillRect(0, 0, 800, 600);	    	
 			return;
 		}
 		if(imgFundo!=null){//Verifica se a imagem foi passada. Para evitar erros
-			g.drawImage(imgFundo,0,0,600,450,800,600,1600,1200,null);//Ele desenha a imagem na tela. g.drawImage(imagem, x-tela, y-tela, largura-tela, altura-tela, x-imagem, y-imagem, largura-imagem, altura-imagem, notificação)
+			g.drawImage(imgFundo,0,0,null);//Ele desenha a imagem na tela. g.drawImage(imagem, x-tela, y-tela, largura-tela, altura-tela, x-imagem, y-imagem, largura-imagem, altura-imagem, notificação)
 		}
 		for(int i=0;i<lista.size();i++){//Varredura da lista
 			if(timer%4==0)
@@ -118,6 +122,11 @@ public class Cenario extends JPanel implements Runnable{
 		return colisionCenter;
 	}
 	
+	public ArrayList<Printable> getPrintables(){
+		if(lista==null) lista  = new ArrayList<Printable>();
+		return lista;
+	}
+	
 	/**Adiciona um item do tipo Colidivel para ser verificado e notificado quando estiver 
 	 * em estado de colisão.
 	 * 
@@ -125,5 +134,9 @@ public class Cenario extends JPanel implements Runnable{
 	 */
 	public void addColidivel(Colidivel c){
 		getColisionCenter().add(c);
+	}
+	
+	public long getTimer(){
+		return timer;
 	}
 }
