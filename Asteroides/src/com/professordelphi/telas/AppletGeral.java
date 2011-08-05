@@ -9,11 +9,14 @@ import java.net.URL;
 
 import javax.swing.JApplet;
 
+import com.professordelphi.engine.Cenario;
+import com.professordelphi.engine.CenarioListener;
 import com.professordelphi.engine.MediaCenter;
 
-public class AppletGeral extends JApplet implements KeyListener{
+public class AppletGeral extends JApplet implements KeyListener, CenarioListener{
 
-	Fase01 inicio,cenario;
+	Fase01 inicio;
+	Menu1 menu;
 	Container tela;
 	int x = 0;
 	Graphics g;
@@ -35,19 +38,26 @@ public class AppletGeral extends JApplet implements KeyListener{
 		this.setLayout(null);/*Desativa o gerenciador de Layout*/
 		this.addKeyListener(this);
 		this.requestFocus();
-		iniciar();
+		try {
+			iniciar();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void stop(){
 		
 	}
 
-	private void iniciar(){
-//		mediaCenter.add("img/mosquito.png");
-//		mediaCenter.add("img/enemy1.png");
-//		mediaCenter.start();
-		inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
-		tela.add(inicio);// Adicionando o cenário 'inicio' no container
+	private void iniciar() throws Exception{
+		//mediaCenter.add("img/mosquito.png");
+		mediaCenter.add("img/enemy1.png");
+		mediaCenter.start();
+		menu = new Menu1(this);
+		//inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
+		//tela.add(inicio);// Adicionando o cenário 'inicio' no container
+		tela.add(menu);
 	}
 
 	public void keyPressed(KeyEvent key) {
@@ -64,4 +74,15 @@ public class AppletGeral extends JApplet implements KeyListener{
 
 	public void keyTyped(KeyEvent key) {
 	}
+
+	@Override
+	public int fim(Cenario sender) {
+		System.out.println("Fim de execução do menu");
+		tela.remove(menu);
+		menu = null;
+		inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
+		tela.add(inicio);// Adicionando o cenário 'inicio' no container
+		return 0;
+	}
+
 }

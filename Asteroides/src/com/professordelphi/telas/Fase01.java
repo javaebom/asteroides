@@ -11,7 +11,9 @@ import com.professordelphi.asteroide.Missil;
 import com.professordelphi.asteroide.Nave;
 import com.professordelphi.engine.Cenario;
 import com.professordelphi.engine.Colidivel;
+import com.professordelphi.engine.Movable;
 import com.professordelphi.engine.Printable;
+import com.professordelphi.engine.Sprite;
 
 public class Fase01 extends Cenario {
 	Image imgFundo, imgNave, imgAsteroides;
@@ -29,6 +31,10 @@ public class Fase01 extends Cenario {
 		    addPrintable(new Asteroide(applet, this));
 		    addPrintable(new Asteroide(applet, this));
 		    addPrintable(new Asteroide(applet, this));
+		    for (int i = 0; i < 30; i++) {
+		    	addPrintable(new Asteroide(applet, this));
+			}
+		    
 //		    addPrintable(new Mosquito(applet, this));
 		    
 		    imgFundo = applet.getImage(new URL(applet.getDocumentBase(),"img/fundo ok.jpg"));
@@ -44,6 +50,7 @@ public class Fase01 extends Cenario {
 	
 	@Override
 	public void addPrintable(Printable p){
+		if(p instanceof Missil) System.out.println("Missil sendo adicionado ao cenário");
 		if(p instanceof Colidivel)
 			addColidivel((Colidivel)p);
 		super.addPrintable(p);
@@ -64,6 +71,7 @@ public class Fase01 extends Cenario {
 	
 	public void acerto(){
 		acertos ++;
+		System.out.println("Acertos = " + acertos);
 	}
 	
 	@Override 
@@ -72,5 +80,14 @@ public class Fase01 extends Cenario {
 		g.setColor(Color.black);
 		g.drawString("Pontos : " + acertos, 10, 10);
 		g.drawString("Perdas : " + perdas, 10, 30);
+	}
+	@Override
+	public void ataque(Movable m,int intencidade ,int x,int y,int x2,int y2){
+		for (Printable p:getPrintables()) 
+			if (p instanceof Asteroide && p != m) 
+				if(x>=((Sprite)p).getX1() && x2<=((Sprite)p).getX2()){
+					((Asteroide)p).ataque(intencidade);
+					
+				}
 	}
 }
