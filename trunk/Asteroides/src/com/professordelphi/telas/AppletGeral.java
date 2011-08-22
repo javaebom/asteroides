@@ -15,7 +15,7 @@ import com.professordelphi.engine.MediaCenter;
 
 public class AppletGeral extends JApplet implements KeyListener, CenarioListener{
 
-	Fase01 inicio;
+	Fase01 fase01;
 	Menu1 menu;
 	Container tela;
 	int x = 0;
@@ -43,33 +43,30 @@ public class AppletGeral extends JApplet implements KeyListener, CenarioListener
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void stop(){
-		
+
 	}
 
 	private void iniciar() throws Exception{
-		//mediaCenter.add("img/mosquito.png");
 		mediaCenter.add("img/enemy1.png");
 		mediaCenter.start();
 		menu = new Menu1(this);
-		//inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
-		//tela.add(inicio);// Adicionando o cenário 'inicio' no container
 		tela.add(menu);
 	}
 
 	public void keyPressed(KeyEvent key) {
-		inicio.keyDown((byte)key.getKeyCode());
-		inicio.notifyTecla((byte)key.getKeyCode());
+		getFase01().keyDown((byte)key.getKeyCode());
+		getFase01().notifyTecla((byte)key.getKeyCode());
 		if (key.getKeyChar()==27) {
-			inicio.pause();
+			getFase01().pause();
 		}
 	}
 
 	public void keyReleased(KeyEvent key) {
-		inicio.keyUp((byte)key.getKeyCode());
+		getFase01().keyUp((byte)key.getKeyCode());
 	}
 
 	public void keyTyped(KeyEvent key) {
@@ -77,12 +74,41 @@ public class AppletGeral extends JApplet implements KeyListener, CenarioListener
 
 	@Override
 	public int fim(Cenario sender) {
-		System.out.println("Fim de execução do menu");
 		tela.remove(menu);
 		menu = null;
-		inicio = new Fase01(this);// Criação do cenário que recebe o endereço na aplet no construtor
-		tela.add(inicio);// Adicionando o cenário 'inicio' no container
+		tela.add(getFase01());// Adicionando o cenário 'inicio' no container
 		return 0;
+	}
+
+	public void nextFase(){
+		try {
+			if (tela==getMenu1()) {
+				getFase01().reset();
+				tela = getFase01();
+			}
+			else if (tela==getFase01()) {
+				getMenu1().reset();
+				tela = getMenu1();
+			}
+			else{
+				getMenu1().reset();
+				tela = getMenu1();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public Fase01 getFase01(){
+		if (fase01==null) 
+			fase01 = new Fase01(this);
+		return fase01;
+	}
+	public Menu1 getMenu1()throws Exception{
+		if (menu==null) 
+			menu = new Menu1(this);
+		return menu;
 	}
 
 }
