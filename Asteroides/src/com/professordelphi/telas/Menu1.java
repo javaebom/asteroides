@@ -30,4 +30,10 @@ public class Menu1 extends Cenario {
 		super.paint(g);
 		if(getTimer()%300==0) cenarioListener.fim(this);
 	}
+	
+	@Override
+	public void reset(){
+		super.reset();
+		
+	}
 }

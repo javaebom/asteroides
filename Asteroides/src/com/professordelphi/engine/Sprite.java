@@ -21,7 +21,6 @@ public class Sprite extends Movable implements Printable{
 	}
 	@Override
 	public strictfp void paint(Graphics g) {
-		//Rectangle r = quadros.get(quadroAtual);
 		if(quadros.size()==0)return;
 		Rectangle r = quadros.get(quadroAtual);
 		g.drawImage(img,getLeft(),getTop(),(int)getX2(),(int)getY2(),

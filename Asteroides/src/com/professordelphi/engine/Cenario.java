@@ -139,4 +139,8 @@ public class Cenario extends JPanel implements Runnable{
 	public long getTimer(){
 		return timer;
 	}
+	
+	public void reset(){
+		timer = 0;
+	}
 }
