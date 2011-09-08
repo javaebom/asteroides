@@ -45,7 +45,6 @@ public class Asteroide extends Sprite{
 		explodindo = false;
 		aceleracao.setXY(0, 0);//zera a movimentação
 		setLife(100);
-		setQuadroAtual(0);
 		setSolid(true);
 	}
 
