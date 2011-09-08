@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class Cenario extends JPanel implements Runnable{
+public class Cenario extends JPanel implements Runnable, Updateable{
 	Image imgFundo;
 	private Thread controle;
 	private byte tecla=0;
@@ -16,11 +16,12 @@ public class Cenario extends JPanel implements Runnable{
 	private long timer=0;
 	private ArrayList<Printable> lista;//Lista de sprites que serão pintados na tela
 	protected CenarioListener cenarioListener;
+	private ArrayList<Updateable> updateables = new ArrayList<Updateable>();
 	
 	/**Lista dos objetos que estarão sucetiveis de tratamento de colisão.
 	 * 
 	 */
-	private ColisionCenter colisionCenter;
+	private ColisionCenter colisionCenter = new ColisionCenter();
 
 	/**
 	 * 
@@ -29,16 +30,17 @@ public class Cenario extends JPanel implements Runnable{
 
 	public Cenario(CenarioListener c){//Construtor que recebe a imagem
 		super(true);//Diz ao JPanel que ele irá trabalhar com double Buffer
+		this.setIgnoreRepaint(true);//ignora solicitações de repaint do systema operacinal
 		lista = new ArrayList<Printable>();//Inicialização da lista
 		cenarioListener = c;
 		controle = new Thread(this);
 		gravidade = new Vetor(0, .05);
+		
 		controle.start();
 	}
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
-		Sprite sprite = null;
 		if(isPause){
 			g.setColor(Color.blue);
 			g.fillRect(0, 0, 800, 600);	    	
@@ -47,29 +49,27 @@ public class Cenario extends JPanel implements Runnable{
 		if(imgFundo!=null){//Verifica se a imagem foi passada. Para evitar erros
 			g.drawImage(imgFundo,0,0,null);//Ele desenha a imagem na tela. g.drawImage(imagem, x-tela, y-tela, largura-tela, altura-tela, x-imagem, y-imagem, largura-imagem, altura-imagem, notificação)
 		}
-		for(int i=0;i<lista.size();i++){//Varredura da lista
-			if(timer%4==0)
-				if(lista.get(i) instanceof Sprite){
-					sprite = ((Sprite)lista.get(i));
-					sprite.notifyTecla(tecla);
-					sprite.mover(gravidade);
-				}
+		for(int i=0;i<lista.size();i++)//Varredura da lista
 			lista.get(i).paint(g);
-		}
-		getColisionCenter().verifica();
-		timer = ++timer%Long.MAX_VALUE;
+		
 	}
+	
+	
 	public void setImgFundo(Image img){
 		this.imgFundo = img;
 	}
 	public void addPrintable(Printable p){
 		lista.add(p);
+		if(p instanceof Colidivel) 
+			colisionCenter.add((Colidivel)p);
+		if(p instanceof Tickeable)
+			updateables.add((Updateable)p);
 	}
 	@Override
 	public void run() {
 		while(controle!= null){
 			try {
-				Thread.sleep(10);
+				Thread.sleep(50);
 				this.repaint();
 			} catch (Exception e) {
 				System.out.println("Erro no gameLoop : " + e.getMessage());
@@ -112,16 +112,6 @@ public class Cenario extends JPanel implements Runnable{
 					((Sprite)p).ataque(intencidade);
 	}
 	
-	/**Método get para verificalção da disponibilidade do objeto.
-	 * 
-	 * @return Lista dos objetos sucetiveis de tratamento de colisão.
-	 */
-	public ColisionCenter getColisionCenter() {
-		if (colisionCenter==null) 
-			colisionCenter = new ColisionCenter();
-		return colisionCenter;
-	}
-	
 	public ArrayList<Printable> getPrintables(){
 		if(lista==null) lista  = new ArrayList<Printable>();
 		return lista;
@@ -133,7 +123,7 @@ public class Cenario extends JPanel implements Runnable{
 	 * @param c Objeto do tipo Colidivel
 	 */
 	public void addColidivel(Colidivel c){
-		getColisionCenter().add(c);
+		colisionCenter.add(c);
 	}
 	
 	public long getTimer(){
@@ -142,5 +132,17 @@ public class Cenario extends JPanel implements Runnable{
 	
 	public void reset(){
 		timer = 0;
+	}
+	@Override
+	public void update(ArrayList<Colidivel> lista) {
+		for (Updateable u:updateables){ 
+			u.update(colisionCenter.getLista());
+			if(u instanceof Sprite){
+					((Sprite)u).notifyTecla(tecla);
+					((Sprite)u).mover(gravidade);
+				}
+		}
+		colisionCenter.verifica();
+		timer = ++timer%Long.MAX_VALUE;
 	}
 }
