@@ -12,6 +12,13 @@ public class Frame {
 	
 	public Frame(int x, int y , int w , int h,int nextFrame){
 		setBounds(x, y, w, h);
+		this.nextFrame = nextFrame;
+	}
+	
+	public Frame(int x, int y , int w , int h,int nextFrame, int delay){
+		setBounds(x, y, w, h);
+		this.nextFrame  = nextFrame;
+		this.delay = delay;
 	}
 	
 	public void setBounds(int x, int y , int w , int h){

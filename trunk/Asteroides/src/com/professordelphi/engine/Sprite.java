@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import com.professordelphi.engine.animation.TimeLine;
+
 
 public class Sprite extends Movable implements Printable, Updateable{
 	private Image img;
@@ -13,6 +15,7 @@ public class Sprite extends Movable implements Printable, Updateable{
 	protected byte tecla;
 	private ArrayList<Rectangle> quadros;//lista de quadros mapeados
 	private int quadroAtual=0,life=100,resistencia = 2;
+	private TimeLine timeLine = new TimeLine();
 	protected boolean teclas[] = new boolean[90];
 	private long time=0;
 	public Sprite(Image img){
@@ -37,6 +40,7 @@ public class Sprite extends Movable implements Printable, Updateable{
 	}
 	public void addQuadro(int x1, int y1, int x2, int y2){
 		quadros.add(new Rectangle(x1,y1,x2,y2));
+		timeLine.add(x1,y1,x2,y2);
 	}
 	public void notifyTecla(byte tecla){
 		this.tecla = tecla;
@@ -65,21 +69,19 @@ public class Sprite extends Movable implements Printable, Updateable{
 	}
 	public void nextFrame(){
 		nextQuadro();
+		timeLine.nextFrame();
 	}
 
 	public long getTime(){
 		return time;
 	}
-	public int getQuadroAtual() {
+/*	public int getQuadroAtual() {
 		return quadroAtual;
-	}
-	public void setQuadroAtual(int quadroAtual) {
-		this.quadroAtual = quadroAtual;
-	}
+	}*/
 
-	public int getQuadrosCount(){
-		return quadros.size();
-	}
+/*	public int getQuadrosCount(){
+		return timeLine.getSize();
+	}*/
 	public int getLife() {
 		return life;
 	}
