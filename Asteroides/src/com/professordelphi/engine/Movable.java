@@ -12,6 +12,10 @@ public class Movable implements Colidivel{
 		vDireita = new Vetor( 0.05, 0);
 		vEsquerda= new Vetor(-0.05, 0);
 	}
+	
+	public void setVelocidadeMaxima(double v){
+		aceleracao.setRaioLimite(v);
+	}
 
 	public void mover(Vetor gravidade){
 		//if(gravidade.getRaio()+aceleracao.getRaio()<passo)

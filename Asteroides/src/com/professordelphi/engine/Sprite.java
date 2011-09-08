@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 
-public class Sprite extends Movable implements Printable{
+public class Sprite extends Movable implements Printable, Updateable{
 	private Image img;
 	private boolean visible = false ,mostraLife=true;
 	protected byte tecla;
@@ -33,7 +33,7 @@ public class Sprite extends Movable implements Printable{
 			if(life<100)
 				g.drawLine(getX1() + (int)((getWidth()/100f)* life), getY1(), getX2(), getY1());
 		}
-		time++;
+		
 	}
 	public void addQuadro(int x1, int y1, int x2, int y2){
 		quadros.add(new Rectangle(x1,y1,x2,y2));
@@ -95,5 +95,9 @@ public class Sprite extends Movable implements Printable{
 	}
 	public void setExibeLife(boolean value){
 		mostraLife = value;
+	}
+	@Override
+	public void update(ArrayList<Colidivel> lista) {
+		time++;
 	}
 }
