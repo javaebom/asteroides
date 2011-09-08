@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JApplet;
 
 import com.professordelphi.engine.Cenario;
+import com.professordelphi.engine.Colidivel;
 import com.professordelphi.engine.Sprite;
 import com.professordelphi.engine.Vetor;
 import com.professordelphi.telas.Fase01;
@@ -47,40 +48,6 @@ public class Nave extends Sprite{
 		aceleracao.setXY(.0, .0);
 		//---------------------------------------------
 	}
-	@Override
-	public void paint(Graphics g) {
-		timerDeLancamento = timerDeLancamento>0?--timerDeLancamento:0;
-		if(teclas[37]){
-			esquerda();
-		}
-		if(teclas[39]){
-			direita();
-		}
-		if(teclas[32]) {
-			atirando = true;
-		}
-		if (teclas[66]&&missil.isRead()){
-			lancar();
-		}
-		if (teclas[10])
-			((Fase01)c).ataque(this, 100, 0, 0, 500, 500);		
-
-		if(atirando) {
-			g.setColor(Color.cyan);
-			g.drawLine(getX1() + getWidth()/2 -1, getY1(), getX1() + getWidth()/2-1, 0);
-			g.setColor(Color.white);
-			g.drawLine(getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
-			g.setColor(Color.cyan);
-			g.drawLine(getX1() + getWidth()/2 +1, getY1(), getX1() + getWidth()/2+1, 0);
-			atirando = false;
-			c.ataque(this,1, getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
-		}
-		g.setColor(Color.red);
-		g.fillRect(30, 10, (int)(aceleracao.getRaio()*50), 5);
-
-		super.paint(g);
-		nextFrame();//muda para o proximo quadro
-	}//paint
 
 	@Override
 	public void direita(){
@@ -139,5 +106,45 @@ public class Nave extends Sprite{
 		}
 		return misseis;
 	}
+	@Override
+	public void update(ArrayList<Colidivel> lista){
+
+		if(teclas[37]){
+			esquerda();
+		}
+		if(teclas[39]){
+			direita();
+		}
+		if(teclas[32]) {
+			atirando = true;
+		}
+		if (teclas[66]&&missil.isRead()){
+			lancar();
+		}
+		if (teclas[10])
+			((Fase01)c).ataque(this, 100, 0, 0, 500, 500);
+		
+		nextFrame();//muda para o proximo quadro
+	}
 	
+	@Override
+	public void paint(Graphics g) {
+		timerDeLancamento = timerDeLancamento>0?--timerDeLancamento:0;
+	
+
+		if(atirando) {
+			g.setColor(Color.cyan);
+			g.drawLine(getX1() + getWidth()/2 -1, getY1(), getX1() + getWidth()/2-1, 0);
+			g.setColor(Color.white);
+			g.drawLine(getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
+			g.setColor(Color.cyan);
+			g.drawLine(getX1() + getWidth()/2 +1, getY1(), getX1() + getWidth()/2+1, 0);
+			atirando = false;
+			c.ataque(this,1, getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
+		}
+		g.setColor(Color.red);
+		g.fillRect(30, 10, (int)(aceleracao.getRaio()*50), 5);
+
+		super.paint(g);
+	}//paint
 }//class
