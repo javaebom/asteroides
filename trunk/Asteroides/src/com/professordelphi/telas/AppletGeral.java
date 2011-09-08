@@ -11,6 +11,7 @@ import javax.swing.JApplet;
 
 import com.professordelphi.engine.Cenario;
 import com.professordelphi.engine.CenarioListener;
+import com.professordelphi.engine.GameTicker;
 import com.professordelphi.engine.MediaCenter;
 
 public class AppletGeral extends JApplet implements KeyListener, CenarioListener{
@@ -23,6 +24,7 @@ public class AppletGeral extends JApplet implements KeyListener, CenarioListener
 	Image imgFundo;
 	URL urlFundo;
 	MediaCenter mediaCenter;
+	GameTicker gameTicker = new GameTicker();
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +34,7 @@ public class AppletGeral extends JApplet implements KeyListener, CenarioListener
 	@Override 
 	public void init(){
 		setSize(500, 500);
-		mediaCenter = new MediaCenter(this);
+		//mediaCenter = new MediaCenter(this);
 
 		tela = this.getContentPane();
 		this.setLayout(null);/*Desativa o gerenciador de Layout*/
@@ -51,10 +53,10 @@ public class AppletGeral extends JApplet implements KeyListener, CenarioListener
 	}
 
 	private void iniciar() throws Exception{
-		mediaCenter.add("img/enemy1.png");
-		mediaCenter.start();
-		menu = new Menu1(this);
-		tela.add(menu);
+		gameTicker.add(getFase01());
+		gameTicker.setDelay(15);
+		gameTicker.start();
+		tela.add(getFase01());
 	}
 
 	public void keyPressed(KeyEvent key) {

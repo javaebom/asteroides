@@ -1,6 +1,7 @@
 package com.professordelphi.asteroide;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.JApplet;
 
@@ -36,29 +37,6 @@ public class Asteroide extends Sprite{
 		c.addPrintable(this);
 		aceleracao.setRaioLimite(1.0);
 	    this.c = c;
-	}
-
-	@Override
-	public void paint(java.awt.Graphics g){
-		super.paint(g);
-		if(getTop()>=500){
-			reset();
-			if(c instanceof Fase01) ((Fase01)c).perda(5);
-		}
-		if(getTime()%5==0) 
-			if(!explodindo){
-				if(getTime()%20==0)
-					setQuadroAtual((getQuadroAtual()+1)%3);
-				/*descer();*/
-			}
-			else{
-				if (getQuadroAtual()<6)
-					if(getTime()%20==0)
-						setQuadroAtual(getQuadroAtual()+1);
-					else /*descer()*/;
-					else
-						reset();
-			}
 	}
 
 	public void reset(){
@@ -109,5 +87,32 @@ public class Asteroide extends Sprite{
 	@Override
 	public void colidiu(Colidivel c){
 		explodir();
+	}
+	
+	@Override
+	public void update(ArrayList<Colidivel> lista){
+		if(getTop()>=500){
+			reset();
+			if(c instanceof Fase01) ((Fase01)c).perda(5);
+		}
+		if(getTime()%5==0) 
+			if(!explodindo){
+				if(getTime()%20==0)
+					setQuadroAtual((getQuadroAtual()+1)%3);
+				/*descer();*/
+			}
+			else{
+				if (getQuadroAtual()<6)
+					if(getTime()%20==0)
+						setQuadroAtual(getQuadroAtual()+1);
+					else /*descer()*/;
+					else
+						reset();
+			}
+	}
+	
+	@Override
+	public void paint(java.awt.Graphics g){
+		super.paint(g);
 	}
 }
