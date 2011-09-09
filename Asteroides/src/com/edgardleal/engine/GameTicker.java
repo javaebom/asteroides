@@ -9,6 +9,7 @@ public class GameTicker extends Thread {
 	
 	public GameTicker() {
 		super();
+		this.setPriority(10);
 	}
 	public void add(Tickeable t){
 		items.add(t);
@@ -17,17 +18,20 @@ public class GameTicker extends Thread {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 	
 	@Override 
 	public void run(){
+		long timer = 0l;
 		while (this!=null) {
 			try {
 				for (Tickeable t : items)
 					t.update(null);
+				timer  = System.currentTimeMillis();
 				Thread.sleep(delay);
+				if(System.currentTimeMillis()-timer>delay*1.7) System.err.println("\nAtrazo na Thread GameTicker"+
+						"\n" + (System.currentTimeMillis()-timer) + " X " + delay);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}//catch

@@ -21,18 +21,18 @@ public class Asteroide extends Sprite{
 		this.addQuadro(0, 1, 32, 31);       // 0
 		this.addQuadro(32, 1, 32+32, 31);   // 1
 		this.addQuadro(67, 3, 26+67, 26+3); // 2
-		this.addQuadro(99, 3, 26+99, 26+3); // 3 
+		getTimeline().add(99, 3, 26+99, 26+3,0); // 3 
 
 		/* Explosão */
-		getTimeline().add(133, 6, 21+133, 22+6,5); //4 vai mudar para o 5
-		getTimeline().add(165, 6, 22+165, 6+22,6); //5 vai mudar para o 6
-		getTimeline().add(97, 6, 22+197, 22+6 ,1); //6 vai mudar para o 1
+		getTimeline().add(132, 5, 154, 28,5,9); //4 vai mudar para o 5
+		getTimeline().add(164, 5, 187, 28,6,9); //5 vai mudar para o 6
+		getTimeline().add(196, 5, 219, 28,0,9); //6 vai mudar para o 1
 		
 		this.setHeight(32);
 		this.setWidth(32);
 		this.reset();
 		setPasso(0.5);
-		atrito.setRaio(1);
+		atrito.setRaio(1.5);
 		c.addPrintable(this);
 		aceleracao.setRaioLimite(1.0);
 	    this.c = c;
@@ -59,13 +59,13 @@ public class Asteroide extends Sprite{
 		if(explodindo) return ;
 		setSolid(false);
 		setExplodindo(true);
+		getTimeline().gotoFrame(4);
 	}
 	
 	@Override 
 	public boolean ataque(int intencidade){
 		super.ataque(intencidade);
 		if(getLife()<=0 && !explodindo){
-			System.out.println("Ponto marcado em asteroide");
 			((Fase01)c).acerto();
 			explodir();
 		}
@@ -88,11 +88,12 @@ public class Asteroide extends Sprite{
 	}
 	
 	public void update(ArrayList<Colidivel> lista){
-
+		super.update(lista);
+		if(getY()>550) reset();
 	}
-	
 	@Override
-	public void paint(java.awt.Graphics g){
-		super.paint(g);
+	public void onFrameEnd(int frame) {
+		if(frame==6) 
+			reset();
 	}
 }

@@ -27,11 +27,7 @@ public class Fase01 extends Cenario {
 		try{
 			nave  = new Nave(applet, this);
 		    addPrintable(nave);//diciona a nave na lista de objetos da fase
-		    addPrintable(new Asteroide(applet, this));
-		    addPrintable(new Asteroide(applet, this));
-		    addPrintable(new Asteroide(applet, this));
-		    addPrintable(new Asteroide(applet, this));
-		    for (int i = 0; i < 30; i++) {
+		    for (int i = 0; i < 10; i++) {
 		    	addPrintable(new Asteroide(applet, this));
 			}
 		    
@@ -50,7 +46,6 @@ public class Fase01 extends Cenario {
 	
 	@Override
 	public void addPrintable(Printable p){
-		if(p instanceof Missil) System.out.println("Missil sendo adicionado ao cenário");
 		if(p instanceof Colidivel)
 			addColidivel((Colidivel)p);
 		super.addPrintable(p);
@@ -71,7 +66,6 @@ public class Fase01 extends Cenario {
 	
 	public void acerto(){
 		acertos ++;
-		System.out.println("Acertos = " + acertos);
 	}
 	
 	@Override 

@@ -1,8 +1,10 @@
 package com.edgardleal.canhao;
 
-import com.edgardleal.engine.view.TelaPadrao;
+import java.awt.Toolkit;
 
-public class Canhao extends TelaPadrao {
+import com.edgardleal.engine.Sprite;
+
+public class Canhao extends Sprite {
 
 	/**
 	 * 
@@ -10,16 +12,10 @@ public class Canhao extends TelaPadrao {
 	private static final long serialVersionUID = -4182748336163526433L;
 
 	public Canhao() {
-		this.setFase(new Fase01(this));
-		
+		super(Toolkit.getDefaultToolkit().getImage("img\\Cannon.png"));
+		getTimeline().add(6, 20, 50, 55);
+		this.setBounds(200, 300, 44, 49);	
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		new Canhao().setVisible(true);
-
-	}
 
 }

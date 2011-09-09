@@ -41,9 +41,9 @@ public class Nave extends Sprite{
 		c.addPrintable(missil);
 		this.c = c;
 		this.applet = a;
-		vDireita.setXY(.2, 0);
+		vDireita.setXY(.4, 0);
 		atrito.setRaio(0.09);
-		vEsquerda.setXY(-0.2d, 0);
+		vEsquerda.setXY(-0.4d, 0);
 		aceleracao.setRaioLimite(8);
 		aceleracao.setXY(.0, .0);
 		//---------------------------------------------
@@ -140,7 +140,7 @@ public class Nave extends Sprite{
 			g.setColor(Color.cyan);
 			g.drawLine(getX1() + getWidth()/2 +1, getY1(), getX1() + getWidth()/2+1, 0);
 			atirando = false;
-			c.ataque(this,1, getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
+			c.ataque(this,5, getX1() + getWidth()/2 , getY1(), getX1() + getWidth()/2, 0);
 		}
 		g.setColor(Color.red);
 		g.fillRect(30, 10, (int)(aceleracao.getRaio()*50), 5);
