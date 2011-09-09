@@ -128,7 +128,12 @@ public class Sprite extends Movable implements Printable, Updateable, FrameListe
 	}
 	public void rotate(Graphics g){
 		Graphics2D g2 = (Graphics2D)g.create();
-		
+		Graphics2D g2d = g2.create();  
+		g2d.translate(445/2-10, 505);    
+		g2d.rotate(angulo.getValue());    
+		g2d.translate(-(445/2-10), -505);    
+		g2d.drawImage(canhao, 445/2-40, 434, this);   
+		g2d.dispose(); 
 		aceleracao.getDirecao();
 	}
 	
