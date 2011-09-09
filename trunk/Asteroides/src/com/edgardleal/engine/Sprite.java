@@ -2,20 +2,23 @@ package com.edgardleal.engine;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import com.edgardleal.engine.animation.Frame;
+import com.edgardleal.engine.animation.FrameListener;
 import com.edgardleal.engine.animation.TimeLine;
 
 
-public class Sprite extends Movable implements Printable, Updateable{
+public class Sprite extends Movable implements Printable, Updateable, FrameListener{
 	private Image img;
 	private boolean visible = false ,mostraLife=true;
 	protected byte tecla;
 	private ArrayList<Rectangle> quadros;//lista de quadros mapeados
-	private int quadroAtual=0,life=100,resistencia = 2;
-	private TimeLine timeLine = new TimeLine();
+	private int life=100,resistencia = 2;
+	private TimeLine timeLine = new TimeLine(this);
 	protected boolean teclas[] = new boolean[90];
 	private long time=0;
 	public Sprite(Image img){
@@ -25,9 +28,9 @@ public class Sprite extends Movable implements Printable, Updateable{
 	@Override
 	public strictfp void paint(Graphics g) {
 		if(quadros.size()==0)return;
-		Rectangle r = quadros.get(quadroAtual);
+		Frame r = timeLine.getFrame();
 		g.drawImage(img,getLeft(),getTop(),(int)getX2(),(int)getY2(),
-				r.x,r.y,r.width,r.height,null);
+				r.getX(),r.getY(),r.getW(),r.getH(),null);
 
 		if (mostraLife) {
 			g.setColor(Color.green);
@@ -42,6 +45,7 @@ public class Sprite extends Movable implements Printable, Updateable{
 		quadros.add(new Rectangle(x1,y1,x2,y2));
 		timeLine.add(x1,y1,x2,y2);
 	}
+	
 	public void notifyTecla(byte tecla){
 		this.tecla = tecla;
 	}
@@ -62,13 +66,7 @@ public class Sprite extends Movable implements Printable, Updateable{
 		this.visible = visible;
 
 	}
-	public void nextQuadro(){
-		//Técnica para reiniciar o arraylist
-		if(time%5==0)
-			quadroAtual = ++ quadroAtual % (quadros.size());
-	}
 	public void nextFrame(){
-		nextQuadro();
 		timeLine.nextFrame();
 		onFrameChange(timeLine.getCurrentFrame());
 	}
@@ -99,8 +97,9 @@ public class Sprite extends Movable implements Printable, Updateable{
 	public void setExibeLife(boolean value){
 		mostraLife = value;
 	}
-	
+	@Override
 	public void update(ArrayList<Colidivel> lista) {
+		nextFrame();
 		time++;
 	}
 	/**Retorna o timeline de animação deste sprite.
@@ -117,5 +116,26 @@ public class Sprite extends Movable implements Printable, Updateable{
 	 */
 	protected void onFrameChange(int frame){
 		
+	}
+	@Override
+	public void onFrameEnd(int frame) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onFrameStart(int frame) {
+		// TODO Auto-generated method stub
+	}
+	public void rotate(Graphics g){
+		Graphics2D g2 = (Graphics2D)g.create();
+		
+		aceleracao.getDirecao();
+	}
+	
+	public void setBounds(int x,int y, int w , int h){
+		setWidth(w);
+		setHeight(h);
+		setX1(x);
+		setY1(y);
 	}
 }

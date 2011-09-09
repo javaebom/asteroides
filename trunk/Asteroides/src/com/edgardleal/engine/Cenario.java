@@ -34,6 +34,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 		lista = new ArrayList<Printable>();//Inicialização da lista
 		cenarioListener = c;
 		controle = new Thread(this);
+		controle.setPriority(7);
 		gravidade = new Vetor(0, .05);
 		
 		controle.start();
