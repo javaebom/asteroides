@@ -26,9 +26,9 @@ public class GameTicker extends Thread {
 		long timer = 0l;
 		while (this!=null) {
 			try {
+        timer  = System.currentTimeMillis(); 
 				for (Tickeable t : items)
 					t.update(null);
-				timer  = System.currentTimeMillis();
 				Thread.sleep(delay);
 				if(System.currentTimeMillis()-timer>delay*1.7) System.err.println("\nAtrazo na Thread GameTicker"+
 						"\n" + (System.currentTimeMillis()-timer) + " X " + delay);
