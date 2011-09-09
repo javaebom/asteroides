@@ -50,8 +50,8 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 		if(imgFundo!=null){//Verifica se a imagem foi passada. Para evitar erros
 			g.drawImage(imgFundo,0,0,null);//Ele desenha a imagem na tela. g.drawImage(imagem, x-tela, y-tela, largura-tela, altura-tela, x-imagem, y-imagem, largura-imagem, altura-imagem, notificação)
 		}
-		for(int i=0;i<lista.size();i++)//Varredura da lista
-			lista.get(i).paint(g);
+		for(Printable p : lista)//Varredura da lista
+			p.paint(g);
 		
 	}
 	
