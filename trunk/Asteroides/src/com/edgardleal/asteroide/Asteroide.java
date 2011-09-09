@@ -18,10 +18,10 @@ public class Asteroide extends Sprite{
 	public Asteroide(JApplet applet,Cenario c) throws Exception{
 		super(applet.getImage(new URL(applet.getDocumentBase(),"img/enemy1.png")));
 		this.id  = ++count;
-		this.addQuadro(0, 1, 32, 31);       // 0
-		this.addQuadro(32, 1, 32+32, 31);   // 1
-		this.addQuadro(67, 3, 26+67, 26+3); // 2
-		getTimeline().add(99, 3, 26+99, 26+3,0); // 3 
+		getTimeline().add(0, 1, 32, 31,0,5);       // 0
+		getTimeline().add(32, 1, 32+32, 31,2,5);   // 1
+		getTimeline().add(67, 3, 26+67, 26+3,3,5); // 2
+		getTimeline().add(99, 3, 26+99, 26+3,0,5); // 3 
 
 		/* Explosão */
 		getTimeline().add(132, 5, 154, 28,5,9); //4 vai mudar para o 5

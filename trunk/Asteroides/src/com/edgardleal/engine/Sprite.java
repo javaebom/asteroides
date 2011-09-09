@@ -2,9 +2,7 @@ package com.edgardleal.engine;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import com.edgardleal.engine.animation.Frame;
@@ -14,20 +12,19 @@ import com.edgardleal.engine.animation.TimeLine;
 
 public class Sprite extends Movable implements Printable, Updateable, FrameListener{
 	private Image img;
-	private boolean visible = false ,mostraLife=true;
+	private boolean visible = true ,mostraLife=true;
 	protected byte tecla;
-	private ArrayList<Rectangle> quadros;//lista de quadros mapeados
 	private int life=100,resistencia = 2;
 	private TimeLine timeLine = new TimeLine(this);
 	protected boolean teclas[] = new boolean[90];
 	private long time=0;
+	
 	public Sprite(Image img){
 		this.img=img;
-		quadros = new ArrayList<Rectangle>();
 	}
 	@Override
-	public strictfp void paint(Graphics g) {
-		if(quadros.size()==0)return;
+	public void paint(Graphics g) {
+		if(!visible) return;
 		Frame r = timeLine.getFrame();
 		g.drawImage(img,getLeft(),getTop(),(int)getX2(),(int)getY2(),
 				r.getX(),r.getY(),r.getW(),r.getH(),null);
@@ -39,10 +36,8 @@ public class Sprite extends Movable implements Printable, Updateable, FrameListe
 			if(life<100)
 				g.drawLine(getX1() + (int)((getWidth()/100f)* life), getY1(), getX2(), getY1());
 		}
-		
 	}
 	public void addQuadro(int x1, int y1, int x2, int y2){
-		quadros.add(new Rectangle(x1,y1,x2,y2));
 		timeLine.add(x1,y1,x2,y2);
 	}
 	
@@ -127,14 +122,15 @@ public class Sprite extends Movable implements Printable, Updateable, FrameListe
 		// TODO Auto-generated method stub
 	}
 	public void rotate(Graphics g){
-		Graphics2D g2 = (Graphics2D)g.create();
-		Graphics2D g2d = g2.create();  
-		g2d.translate(445/2-10, 505);    
-		g2d.rotate(angulo.getValue());    
-		g2d.translate(-(445/2-10), -505);    
-		g2d.drawImage(canhao, 445/2-40, 434, this);   
-		g2d.dispose(); 
-		aceleracao.getDirecao();
+//		Graphics2D g2 = (Graphics2D)g.create();
+//		Graphics2D g2d = g2.create();  
+//		g2d.translate(445/2-10, 505);    
+//		g2d.rotate(angulo.getValue());    
+//		g2d.translate(-(445/2-10), -505);    
+//		g2d.drawImage(canhao, 445/2-40, 434, this);   
+//		g2d.dispose();
+//		
+//		aceleracao.getDirecao();
 	}
 	
 	public void setBounds(int x,int y, int w , int h){
