@@ -1,9 +1,9 @@
 package com.edgardleal.engine.animation;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class TimeLine implements FrameListener{
-	private ArrayList<Frame> frames = new ArrayList<Frame>();
+	private Vector<Frame> frames = new Vector<Frame>();
 	private int currentFrame = 0;
 	private FrameListener frameListener = this;
 	
@@ -18,6 +18,7 @@ public class TimeLine implements FrameListener{
 	 * 
 	 */
 	public void nextFrame(){
+		if(frames.size()==0) return;
 		Frame f  = frames.get(currentFrame);
 		
 		if (f.time==f.delay) {

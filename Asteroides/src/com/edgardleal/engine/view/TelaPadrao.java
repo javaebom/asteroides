@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import com.edgardleal.engine.Cenario;
 import com.edgardleal.engine.CenarioListener;
+import com.edgardleal.engine.GameTicker;
 
 public class TelaPadrao extends JFrame implements KeyListener, CenarioListener {
 
@@ -15,7 +16,8 @@ public class TelaPadrao extends JFrame implements KeyListener, CenarioListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 2677448298977549188L;
-
+	protected GameTicker gameTicker  = new GameTicker();
+	
 	public TelaPadrao(){
 		super();
 		setUndecorated(true);

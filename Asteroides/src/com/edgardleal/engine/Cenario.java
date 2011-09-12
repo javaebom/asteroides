@@ -40,7 +40,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 		controle.start();
 	}
 	@Override
-	public void paint(Graphics g){
+	public synchronized void paint(Graphics g){
 		super.paint(g);
 		if(isPause){
 			g.setColor(Color.blue);
@@ -59,7 +59,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	public void setImgFundo(Image img){
 		this.imgFundo = img;
 	}
-	public void addPrintable(Printable p){
+	public synchronized void addPrintable(Printable p){
 		lista.add(p);
 		if(p instanceof Colidivel) 
 			colisionCenter.add((Colidivel)p);
@@ -83,13 +83,13 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	public void notifyTecla(byte tecla){
 		this.tecla = tecla;
 	}
-	public void keyDown(byte tecla){
+	public synchronized void keyDown(byte tecla){
 		for(Printable p : lista){
 			if(p instanceof Sprite)
 				((Sprite)(p)).keyDown(tecla);
 		}
 	}
-	public void keyUp(byte tecla){
+	public synchronized void keyUp(byte tecla){
 		for(Printable p : lista){
 			if(p instanceof Sprite)
 				((Sprite)(p)).keyUp(tecla);
@@ -123,7 +123,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	 * 
 	 * @param c Objeto do tipo Colidivel
 	 */
-	public void addColidivel(Colidivel c){
+	public synchronized void addColidivel(Colidivel c){
 		colisionCenter.add(c);
 	}
 	
@@ -135,7 +135,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 		timer = 0;
 	}
 	
-	public void update(ArrayList<Colidivel> lista) {
+	public synchronized void update(ArrayList<Colidivel> lista) {
 		for (Updateable u:updateables){ 
 			u.update(colisionCenter.getLista());
 			if(u instanceof Sprite){
