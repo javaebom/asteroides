@@ -6,21 +6,21 @@ public class TimeLine implements FrameListener{
 	private Vector<Frame> frames = new Vector<Frame>();
 	private int currentFrame = 0;
 	private FrameListener frameListener = this;
-	
+
 	public TimeLine(){
-		
+
 	}
 	public TimeLine(FrameListener frameListener){
 		setFrameListener(frameListener);
 	}
-	
+
 	/**Atualiza o frame para o proximo passo do timelinne.
 	 * 
 	 */
 	public void nextFrame(){
 		if(frames.size()==0) return;
 		Frame f  = frames.get(currentFrame);
-		
+
 		if (f.time==f.delay) {
 			f.time = 0;
 			frameListener.onFrameEnd(currentFrame);
@@ -50,9 +50,7 @@ public class TimeLine implements FrameListener{
 
 
 	public Frame getFrame(){
-		synchronized(this){
-			return frames.get(currentFrame);
-		}
+		return frames.get(currentFrame);
 	}
 
 	public int getSize(){
@@ -71,11 +69,11 @@ public class TimeLine implements FrameListener{
 	@Override
 	public void onFrameEnd(int frame) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void onFrameStart(int frame) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

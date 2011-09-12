@@ -134,8 +134,8 @@ public class Sprite extends Movable implements Printable, Updateable, FrameListe
 	}
 	
 	public void setBounds(int x,int y, int w , int h){
-		setWidth(w);
-		setHeight(h);
+		setX2(x+w);
+		setY2(h+y);
 		setX1(x);
 		setY1(y);
 	}

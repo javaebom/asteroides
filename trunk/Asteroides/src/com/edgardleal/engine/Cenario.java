@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -14,9 +15,9 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	private boolean isPause = false;
 	private Vetor gravidade;
 	private long timer=0;
-	private ArrayList<Printable> lista;//Lista de sprites que serão pintados na tela
+	private Vector<Printable> lista;//Lista de sprites que serão pintados na tela
 	protected CenarioListener cenarioListener;
-	private ArrayList<Updateable> updateables = new ArrayList<Updateable>();
+	private Vector<Updateable> updateables = new Vector<Updateable>();
 	
 	/**Lista dos objetos que estarão sucetiveis de tratamento de colisão.
 	 * 
@@ -31,7 +32,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	public Cenario(CenarioListener c){//Construtor que recebe a imagem
 		super(true);//Diz ao JPanel que ele irá trabalhar com double Buffer
 		this.setIgnoreRepaint(true);//ignora solicitações de repaint do systema operacinal
-		lista = new ArrayList<Printable>();//Inicialização da lista
+		lista = new Vector<Printable>();//Inicialização da lista
 		cenarioListener = c;
 		controle = new Thread(this);
 		controle.setPriority(7);
@@ -113,8 +114,8 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 					((Sprite)p).ataque(intencidade);
 	}
 	
-	public ArrayList<Printable> getPrintables(){
-		if(lista==null) lista  = new ArrayList<Printable>();
+	public Vector<Printable> getPrintables(){
+		if(lista==null) lista  = new Vector<Printable>();
 		return lista;
 	}
 	
@@ -136,12 +137,14 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	}
 	
 	public synchronized void update(ArrayList<Colidivel> lista) {
+		synchronized(this){
 		for (Updateable u:updateables){ 
-			u.update(colisionCenter.getLista());
+			u.update(null);
 			if(u instanceof Sprite){
 					((Sprite)u).notifyTecla(tecla);
 					((Sprite)u).mover(gravidade);
 				}
+		}
 		}
 		colisionCenter.verifica();
 		timer = ++timer%Long.MAX_VALUE;

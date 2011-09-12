@@ -8,7 +8,7 @@ public class Fase01 extends Cenario {
 	public Fase01(CenarioListener c) {
 		super(c);
 		this.addPrintable(new Projetil());
-		this.addPrintable(new Canhao());
+		this.addPrintable(new Canhao(this));
 	}
 
 	/**

@@ -180,15 +180,15 @@ public class Vetor {
 	 *
 	 */
 	public static void main(String arg[]){
-
-
-
-		Vetor a = new Vetor(0d,-10d), b = new Vetor(10,0);
-		double x = (a.getX()*b.getX() + a.getY() * b.getY()) /
-		           a.getRaio() * b.getRaio();
+		Vetor gravidade = new Vetor(0.,0.2),
+		      projetil = new Vetor(1,1),
+		      atrito   = new Vetor();
+		atrito.setRaio(0.1);
+		for (int i = 0; i < 10; i++) {
+			projetil.somar(gravidade);
+			System.out.println(projetil);
+		}
 		
-		System.out.println("X : " + x);
-		System.out.println((a.getDirecao()*(360/(Math.PI*2))));
 
 
 	}

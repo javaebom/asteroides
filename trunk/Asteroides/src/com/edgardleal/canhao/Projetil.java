@@ -13,6 +13,7 @@ public class Projetil extends Sprite {
 		setWidth(10);
 		setHeight(10);
 		setLocation(10, 10);
+		aceleracao.setRaioLimite(.25);
 		
 	}
 	public void paint(java.awt.Graphics g){
