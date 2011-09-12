@@ -8,7 +8,7 @@ public class Movable implements Colidivel{
 	protected Vetor atrito, aceleracao, vDireita, vEsquerda;
 
 	public Movable(){
-		atrito = new Vetor(0,.3);
+		atrito = new Vetor(0,.2);
 		aceleracao = new Vetor();
 		vDireita = new Vetor( 0.05, 0);
 		vEsquerda= new Vetor(-0.05, 0);
