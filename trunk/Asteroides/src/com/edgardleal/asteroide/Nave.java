@@ -107,7 +107,7 @@ public class Nave extends Sprite{
 		return misseis;
 	}
 	@Override
-	public void update(ArrayList<Colidivel> lista){
+	public synchronized void update(ArrayList<Colidivel> lista){
 
 		if(teclas[37]){
 			esquerda();
