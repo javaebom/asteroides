@@ -12,8 +12,6 @@ public class AntiMisseis extends TelaPadrao {
 	
 	public AntiMisseis() {
 		this.setFase(fase01);
-		gameTicker.add(fase01);
-		gameTicker.start();
 	}
 
 	/**

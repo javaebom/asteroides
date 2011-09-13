@@ -18,7 +18,9 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	private Vector<Printable> lista;//Lista de sprites que serão pintados na tela
 	protected CenarioListener cenarioListener;
 	private Vector<Updateable> updateables = new Vector<Updateable>();
-	
+
+
+	private GameTicker gameTicker = new GameTicker();
 	/**Lista dos objetos que estarão sucetiveis de tratamento de colisão.
 	 * 
 	 */
@@ -31,17 +33,19 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 
 	public Cenario(CenarioListener c){//Construtor que recebe a imagem
 		super(true);//Diz ao JPanel que ele irá trabalhar com double Buffer
+		gameTicker.add(this);
 		this.setIgnoreRepaint(true);//ignora solicitações de repaint do systema operacinal
 		lista = new Vector<Printable>();//Inicialização da lista
 		cenarioListener = c;
 		controle = new Thread(this);
 		controle.setPriority(7);
 		gravidade = new Vetor(0, .05);
-		
+		gameTicker.setDelay(40);
+		gameTicker.start();
 		controle.start();
 	}
 	@Override
-	public synchronized void paint(Graphics g){
+	public void paint(Graphics g){
 		super.paint(g);
 		if(isPause){
 			g.setColor(Color.blue);
@@ -53,10 +57,11 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 		}
 		for(Printable p : lista)//Varredura da lista
 			p.paint(g);
-		
+
+
 	}
-	
-	
+
+
 	public void setImgFundo(Image img){
 		this.imgFundo = img;
 	}
@@ -72,7 +77,9 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 		while(controle!= null){
 			try {
 				Thread.sleep(50);
-				this.repaint();
+				synchronized(this){
+					this.repaint();
+				}
 			} catch (Exception e) {
 				System.out.println("Erro no gameLoop : " + e.getMessage());
 			}
@@ -96,7 +103,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 				((Sprite)(p)).keyUp(tecla);
 		}
 	}
-	
+
 	/**Distribui um ataque para todos os objetos Sprites da fase se estejam situados na área 
 	 * delimitada pelas cordenadas informadas no parâmetro.
 	 * 
@@ -113,12 +120,12 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 				if(x>=((Sprite)p).getX1() && x2<=((Sprite)p).getX2())
 					((Sprite)p).ataque(intencidade);
 	}
-	
+
 	public Vector<Printable> getPrintables(){
 		if(lista==null) lista  = new Vector<Printable>();
 		return lista;
 	}
-	
+
 	/**Adiciona um item do tipo Colidivel para ser verificado e notificado quando estiver 
 	 * em estado de colisão.
 	 * 
@@ -127,24 +134,24 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	public synchronized void addColidivel(Colidivel c){
 		colisionCenter.add(c);
 	}
-	
+
 	public long getTimer(){
 		return timer;
 	}
-	
+
 	public void reset(){
 		timer = 0;
 	}
-	
+
 	public synchronized void update(ArrayList<Colidivel> lista) {
-		synchronized(this){
-		for (Updateable u:updateables){ 
-			u.update(null);
-			if(u instanceof Sprite){
+		synchronized(gameTicker){
+			for (Updateable u:updateables){ 
+				u.update(null);
+				if(u instanceof Sprite){
 					((Sprite)u).notifyTecla(tecla);
 					((Sprite)u).mover(gravidade);
 				}
-		}
+			}
 		}
 		colisionCenter.verifica();
 		timer = ++timer%Long.MAX_VALUE;

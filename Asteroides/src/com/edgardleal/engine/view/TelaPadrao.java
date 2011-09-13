@@ -24,7 +24,6 @@ public class TelaPadrao extends JFrame implements KeyListener, CenarioListener {
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addKeyListener(this);
-		// TODO Auto-generated constructor stub
 	}
 
 
