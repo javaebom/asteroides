@@ -41,7 +41,7 @@ public class Sprite extends Movable implements Printable, Updateable, FrameListe
 		timeLine.add(x1,y1,x2,y2);
 	}
 	
-	public void notifyTecla(byte tecla){
+	public synchronized void notifyTecla(byte tecla){
 		this.tecla = tecla;
 	}
 
@@ -93,7 +93,7 @@ public class Sprite extends Movable implements Printable, Updateable, FrameListe
 		mostraLife = value;
 	}
 	@Override
-	public void update(ArrayList<Colidivel> lista) {
+	public synchronized void update(ArrayList<Colidivel> lista) {
 		nextFrame();
 		time++;
 	}
