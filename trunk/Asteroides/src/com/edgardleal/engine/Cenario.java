@@ -13,7 +13,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	private Thread controle;
 	private byte tecla=0;
 	private boolean isPause = false;
-	private Vetor gravidade;
+	protected Vetor gravidade;
 	private long timer=0;
 	private Vector<Printable> lista;//Lista de sprites que serão pintados na tela
 	protected CenarioListener cenarioListener;
@@ -40,7 +40,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 		controle = new Thread(this);
 		controle.setPriority(7);
 		gravidade = new Vetor(0, .05);
-		gameTicker.setDelay(40);
+		gameTicker.setDelay(30);
 		gameTicker.start();
 		controle.start();
 	}
@@ -76,7 +76,7 @@ public class Cenario extends JPanel implements Runnable, Updateable{
 	public void run() {
 		while(controle!= null){
 			try {
-				Thread.sleep(50);
+				Thread.sleep(16);
 				synchronized(this){
 					this.repaint();
 				}

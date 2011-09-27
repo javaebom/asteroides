@@ -7,6 +7,7 @@ public class Fase01 extends Cenario {
 
 	public Fase01(CenarioListener c) {
 		super(c);
+		this.gravidade.setXY(0,0.001);
 		this.addPrintable(new Projetil());
 		this.addPrintable(new Canhao(this));
 	}
