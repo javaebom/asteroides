@@ -1,5 +1,15 @@
 package com.edgardleal.engine;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
+
 public class Vetor {
 	private double x=1, y=1;
     private double direcao=0, raio=0;
@@ -175,24 +185,6 @@ public class Vetor {
 		return raio;
 	}
 	
-	/** MÃ©todo principal para teste da classe
-	 *
-	 *
-	 */
-	public static void main(String arg[]){
-		Vetor gravidade = new Vetor(0.,0.2),
-		      projetil = new Vetor(1,1),
-		      atrito   = new Vetor();
-		atrito.setRaio(0.1);
-		for (int i = 0; i < 10; i++) {
-			projetil.somar(gravidade);
-			System.out.println(projetil);
-		}
-		
-
-
-	}
-	
 	
 	private void calcRaio(){
 		raio  = Math.sqrt(Math.pow(x,2d)+ Math.pow(y,2d));
@@ -215,5 +207,58 @@ public class Vetor {
 
 	public void setRaioLimite(double l){
 		raioLimite = l;
+	}
+	
+	public static void main(String[] args) {
+		Vetor v = new Vetor(20,-20), //teste de mudança de direção
+		b = new Vetor(20,20);
+		b.setDirecaoGraus(45);
+		System.out.println("B= " + b);
+		System.out.println(v);
+		v.inverter();
+		System.out.println(v);
+		v.somar(b);
+		System.out.println(v);
+		v.exibir();
+		System.exit(0);
+	}
+	
+	public void exibir(){
+		Tela tela = new Tela(this);
+		tela.setVisible(true);
+	}
+}
+
+class Tela extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -382822471525634591L;
+	private Vetor v;
+	public Tela(Vetor v){
+		this.v = v;
+		setSize(400,400);
+		Dimension d  = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(d.width/2-200, d.height/2-200);
+		setResizable(false);
+		setUndecorated(true);
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e){
+				setVisible(false);
+			}
+		});
+		this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.red));
+		setModal(true);
+	}
+	
+	@Override
+	public void paint(java.awt.Graphics g){
+		DecimalFormat formato = new DecimalFormat("0.0");
+		super.paint(g);
+		g.setColor(Color.blue);
+		g.fillOval(197, 197, 7, 7);
+		g.drawLine(200, 200, (int)v.getX()+200, (int)v.getY()+200);
+		g.drawString("" + formato.format(v.getX()) + " - " + formato.format(v.getY()), (int)v.getX()+190, (int)v.getY()+190);
 	}
 }
